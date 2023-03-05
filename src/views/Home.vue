@@ -69,7 +69,33 @@
         </div>
       </div>
     </section>
-    <custom-popup v-model:show="popupVisible"></custom-popup>
+    <!-- TODO: Разобрать содержимое по компонентам -->
+    <custom-popup v-model:show="popupVisible">
+      <!-- Popup Error content -->
+      <div v-if="popupContentError" class="popup-content__items">
+        <h3 class="popup-content__title">Ошибка!</h3>
+        <p class="popup-content__text">Вы не выбрали доп. статы</p>
+      </div>
+      <!-- Popup Default content -->
+      <div v-else class="popup-content__items">
+        <h3 class="popup-content__title">Добавлено!</h3>
+        <h3 class="popup-content__text">Перейти к артефактам?</h3>
+        <div class="popup-controls">
+          <button
+            @click="handlePageChange"
+            class="popup-control-btn popup-control-btn--green"
+          >
+            Да
+          </button>
+          <button
+            @click="handleComplete"
+            class="popup-control-btn popup-control-btn--red"
+          >
+            Нет
+          </button>
+        </div>
+      </div>
+    </custom-popup>
   </div>
 </template>
 
@@ -77,6 +103,7 @@
   // imports
   import { ref, onMounted } from "vue";
   import { useStore } from "vuex";
+  import { useRoute, useRouter } from "vue-router";
   import data from "@/data/data";
   import selectionList from "@/components/UI/selectionList.vue";
   import generalSelection from "@/components/controlPanel/generalSelection.vue";
@@ -85,12 +112,20 @@
   import customPopup from "@/components/UI/customPopup.vue";
 
   // settings
-  const store = useStore();
   const emit = defineEmits([
     "handleKitSelection",
     "handleTypeSelection",
     "currentDopStatsSelected",
-  ]);
+  ]); // emits
+  const store = useStore(); // store
+  const router = useRouter(); // router
+
+  //? defaults
+  const mainTitle = ref("Цветок потерянного рая"); // set default title
+  const currentTypeIndex = ref(0); // index of current artefact type
+  const selectTitle = "Верхний стат"; // main stat selection title
+  const selectedMainStat = ref("HP"); // default main stat
+  let currentArtifact = "Цветок"; // default artifact type
   const currentKit = ref({
     name: "Цветок потерянного рая",
     images: [
@@ -100,13 +135,9 @@
       { goblet: "/Цветок потерянного рая/goblet.png" },
       { hat: "/Цветок потерянного рая/hat.png" },
     ],
-  });
-  const mainTitle = ref("Цветок потерянного рая");
-  const currentTypeIndex = ref(0);
-  const selectTitle = "Верхний стат";
-  const selectedMainStat = ref("HP");
-  let currentArtifact = "Цветок";
+  }); // default kit images
 
+  //? mutable properties
   let currentArtifactImage;
   let currentDopStats = [];
 
@@ -114,6 +145,8 @@
   const handleKitSelection = (item) => {
     mainTitle.value = item.name;
     currentKit.value = item;
+    // reset current dop stats array
+    currentDopStats = [];
   };
 
   // Type selection on done
@@ -131,7 +164,7 @@
     }
 
     // reset current dop stats array
-    currentDopStats = [];
+    reset();
   };
 
   // Top stat selection on done
@@ -145,10 +178,46 @@
     currentDopStats = items;
   };
 
+  //? Popup properties
+  const popupContentError = ref(false); // контент попапа
   const popupVisible = ref(false);
+  const selectionDone = ref(false);
+
+  // Change page on artifact created
+  const handlePageChange = () => {
+    console.log("Changing page...");
+    router.push("/artifacts");
+  };
+
+  // Handle complete add artifacts by user
+  const handleComplete = () => {
+    popupVisible.value = false;
+    selectionDone.value = true;
+    reset();
+  };
+
+  const reset = () => {
+    const currentArtifact = "Цветок";
+    currentDopStats = [];
+
+    let checkboxes = document.querySelectorAll("input");
+    if (selectedMainStat.value !== "Выберите верхний стат") {
+      checkboxes.forEach((item) => {
+        item.checked = false;
+      });
+    }
+
+    if (selectedMainStat.value !== "Выберите верхний стат" && selectionDone.value) {
+      checkboxes.forEach((item) => {
+        item.checked = false;
+        item.disabled = false;
+      });
+    }
+  };
 
   // Note Creation
   const createNote = () => {
+    //! Logger
     //* Картинка артефакта
     // console.log(Object.values(currentArtifactImage)[0]);
     //* Название набора
@@ -169,21 +238,27 @@
       completed: false,
     };
 
+    // note creation validation. Shows error || create popup
     if (note.extra.length === 0) {
+      popupContentError.value = true;
       popupVisible.value = true;
     } else {
       addNote(note);
+      popupContentError.value = false;
+      popupVisible.value = true;
+      selectionDone.value = true;
     }
   };
 
+  // Creates a new note
   const addNote = (note) => {
     console.log(note);
     store.dispatch("addNote", note);
   };
 
   onMounted(() => {
-    const currentArtifact = "Цветок";
     currentArtifactImage = currentKit.value["images"][0];
+    reset();
   });
 </script>
 
@@ -265,5 +340,70 @@
       text-align: center;
       margin-bottom: 20px;
     }
+  }
+
+  .popup-content {
+    &__items {
+      width: 100%;
+    }
+
+    &__title {
+      font-family: $ff_R;
+      font-size: 3rem;
+      color: $primary;
+      margin-bottom: 20px;
+    }
+
+    &__text {
+      font-family: $ff_R;
+      font-size: 2.2rem;
+      color: $primary;
+    }
+  }
+
+  .popup-controls {
+    @include fdrjc_aic;
+    border-radius: 15px;
+    width: 100%;
+    padding: 20px;
+  }
+  .popup-control-btn {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 120px;
+    padding: 15px 35px;
+    margin: 0 10px;
+    border-radius: 10px;
+    font-family: $ff_R;
+    font-size: 1.6rem;
+    color: $white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+
+    transition: all 0.3s linear;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+      transition: all 0.3s linear;
+    }
+
+    &:active {
+      color: $white;
+      background-color: rgba(43, 189, 246, 0.746);
+      transition: all 0.1s linear;
+    }
+  }
+  .popup-control-btn--green {
+    background-color: green;
+  }
+  .popup-control-btn--red {
+    background-color: red;
   }
 </style>

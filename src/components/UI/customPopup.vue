@@ -2,8 +2,7 @@
   <div class="popup" v-if="show" @click.stop="closePopup">
     <div @click.stop class="popup__wrapper">
       <div class="popup-content">
-        <h3 class="popup-content__title">Ошибка!</h3>
-        <p class="popup-content__text">Вы не выбрали доп. статы</p>
+        <slot></slot>
         <div class="popup-content__actions">
           <button class="close-popup-btn" @click="closePopup">
             <svg viewBox="0 0 20 20">
@@ -59,17 +58,6 @@
   .popup-content {
     width: 100%;
     text-align: center;
-    &__title {
-      font-family: $ff_R;
-      font-size: 4rem;
-      color: $primary;
-    }
-
-    &__text {
-      font-family: $ff_R;
-      font-size: 1.8rem;
-      color: $primary;
-    }
 
     &__actions {
       position: absolute;

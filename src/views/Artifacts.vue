@@ -126,6 +126,8 @@
     &__wrapper {
       width: 100%;
       max-width: 1440px;
+      padding: 0 40px;
+      margin: 0 auto;
     }
   }
 
