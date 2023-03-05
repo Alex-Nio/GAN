@@ -5,7 +5,13 @@
         <div class="container">
           <div class="navbar-content">
             <main-logo></main-logo>
-            <button @click="showMenu = !showMenu" class="burger-btn">Burger</button>
+            <div class="navbar-actions">
+              <button
+                @click="showMenu = !showMenu"
+                class="burger-btn"
+                :class="{ active: showMenu }"
+              ></button>
+            </div>
             <div class="navbar-list__wrapper" :class="{ active: showMenu }">
               <navigation-list :menuLinks="menuLinks"></navigation-list>
             </div>
@@ -56,6 +62,11 @@
   .burger-btn {
     display: none;
   }
+
+  .navbar-actions {
+    display: none;
+  }
+
   .navbar-list {
     @include fdr;
     &__wrapper {
@@ -84,12 +95,90 @@
       display: none;
     }
 
+    .navbar-actions {
+      display: inline-flex;
+      position: fixed;
+      width: 82px;
+      height: 82px;
+      top: 60px;
+      right: 20px;
+      transform: translateY(-50%);
+      z-index: 90;
+    }
+
     .burger-btn {
       display: inline-flex;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
+      position: relative;
+      width: 62px;
+      height: 62px;
+      opacity: 0.5;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 82px;
+        height: 82px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("@/assets/img/icons/burger-bg.svg") no-repeat center / contain;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 82px;
+        height: 82px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("@/assets/img/icons/burger-main.svg") no-repeat center / contain;
+      }
+
+      &.active {
+        opacity: 1;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 82px;
+          height: 82px;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          transform: rotate(360deg);
+          transition: all 2s linear;
+        }
+      }
+    }
+
+    .navbar-list__wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(36, 226, 229, 0.29);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 85;
+      animation: fadeIn 0.3s linear;
+    }
+
+    .navbar-list {
+      @include fdcjc_aic;
+      text-align: center;
+    }
+
+    .navbar-item {
+      margin: 10px 0;
+    }
+    .navbar-item .navbar-link {
+      font-size: 4rem;
     }
   }
 </style>

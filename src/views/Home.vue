@@ -74,7 +74,7 @@
       <!-- Popup Error content -->
       <div v-if="popupContentError" class="popup-content__items">
         <h3 class="popup-content__title">Ошибка!</h3>
-        <p class="popup-content__text">Вы не выбрали доп. статы</p>
+        <p class="popup-content__text">Вы не выбрали доп. статы (Минимум 4 шт.)</p>
       </div>
       <!-- Popup Default content -->
       <div v-else class="popup-content__items">
@@ -103,7 +103,7 @@
   // imports
   import { ref, onMounted } from "vue";
   import { useStore } from "vuex";
-  import { useRoute, useRouter } from "vue-router";
+  import { useRouter } from "vue-router";
   import data from "@/data/data";
   import selectionList from "@/components/UI/selectionList.vue";
   import generalSelection from "@/components/controlPanel/generalSelection.vue";
@@ -185,7 +185,6 @@
 
   // Change page on artifact created
   const handlePageChange = () => {
-    console.log("Changing page...");
     router.push("/artifacts");
   };
 
@@ -193,6 +192,8 @@
   const handleComplete = () => {
     popupVisible.value = false;
     selectionDone.value = true;
+
+    // reset
     currentDopStats = [];
   };
 
@@ -384,5 +385,35 @@
   }
   .popup-control-btn--red {
     background-color: red;
+  }
+
+  @media screen and (max-width: 991px) {
+    .artifact-types__inner {
+      padding: 0;
+    }
+
+    .control-panel__row:nth-child(4),
+    .control-panel__row:nth-child(6) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .control-panel__column:nth-child(1) {
+      margin-bottom: 30px;
+    }
+
+    .control-panel__title:nth-child(2) {
+      display: none;
+    }
+
+    .control-panel__action {
+      margin-top: 15px;
+    }
+  }
+
+  @media screen and (max-width: 481px) {
+    .control-panel__inner {
+      padding: 10px;
+    }
   }
 </style>

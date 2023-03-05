@@ -180,4 +180,15 @@
       transition: all 0.3s linear;
     }
   }
+
+  @media screen and (max-width: 991px) {
+    .selection-list {
+      padding: 0;
+      justify-content: center;
+    }
+
+    .types-list {
+      flex-wrap: wrap;
+    }
+  }
 </style>

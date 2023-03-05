@@ -136,6 +136,17 @@
     transition: transform 0.3s ease-in-out;
   }
 
+  .extra-checkboxes-list li input[type="checkbox"] + label {
+    transition: all 0.2s;
+  }
+
+  .extra-checkboxes-list li input[type="checkbox"]:hover + label {
+    border: 2px solid rgba(59, 199, 201, 0.77);
+    background-color: rgba(36, 226, 229, 0.77);
+    color: #fff;
+    transition: all 0.2s;
+  }
+
   .extra-checkboxes-list li input[type="checkbox"]:checked + label::before {
     content: "";
     width: 24px;
@@ -159,9 +170,6 @@
     position: absolute;
     opacity: 0;
   }
-  // .extra-checkboxes-list li input[type="checkbox"]:focus + label {
-  //   border: 2px solid #000;
-  // }
 
   .extra-checkboxes-list li input[type="checkbox"]:disabled + label {
     background-color: rgba(113, 112, 112, 0.464);
