@@ -164,7 +164,7 @@
     }
 
     // reset current dop stats array
-    reset();
+    currentDopStats = [];
   };
 
   // Top stat selection on done
@@ -193,26 +193,7 @@
   const handleComplete = () => {
     popupVisible.value = false;
     selectionDone.value = true;
-    reset();
-  };
-
-  const reset = () => {
-    const currentArtifact = "Цветок";
     currentDopStats = [];
-
-    let checkboxes = document.querySelectorAll("input");
-    if (selectedMainStat.value !== "Выберите верхний стат") {
-      checkboxes.forEach((item) => {
-        item.checked = false;
-      });
-    }
-
-    if (selectedMainStat.value !== "Выберите верхний стат" && selectionDone.value) {
-      checkboxes.forEach((item) => {
-        item.checked = false;
-        item.disabled = false;
-      });
-    }
   };
 
   // Note Creation
@@ -252,13 +233,11 @@
 
   // Creates a new note
   const addNote = (note) => {
-    console.log(note);
     store.dispatch("addNote", note);
   };
 
   onMounted(() => {
     currentArtifactImage = currentKit.value["images"][0];
-    reset();
   });
 </script>
 

@@ -22,7 +22,7 @@
 </template>
 <script setup>
   import data from "@/data/data";
-  import { ref, watch } from "vue";
+  import { ref, watch, onMounted } from "vue";
 
   const props = defineProps({
     modelValue: String,
@@ -65,6 +65,12 @@
       });
     }
   );
+
+  onMounted(() => {
+    dopStats.value.forEach((value) => {
+      value.checked = false;
+    });
+  });
 </script>
 
 <style lang="scss" scoped>
