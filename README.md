@@ -2,6 +2,8 @@
 
 ## Genshin Artifact Notes
 
+![License](https://img.shields.io/github/license/Alex-Nio/GAN) ![GitHub stars](https://img.shields.io/github/stars/Alex-Nio/GAN?style=social) ![GitHub watchers](https://img.shields.io/github/watchers/Alex-Nio/GAN?style=social)<br>
+
 ---
 
 ![https://github.com/Alex-Nio](banner.png)
@@ -10,7 +12,7 @@
 
 ---
 
-### Features
+### Features 🚀
 
 - Artifact set selection
 - Artifact type selection
@@ -21,7 +23,7 @@
 
 ---
 
-### Technologies Used
+### Technologies Used 🧑‍💻
 
 Vue.js
 Vuex
@@ -30,13 +32,13 @@ JavaScript
 
 ---
 
-### Installation
+### Installation ⚙️
 
 To install GAN-Genshin Artifact Notes, simply clone this repository and open index.html in your preferred browser. No additional dependencies are required.
 
 ---
 
-### Usage
+### Usage ❓
 
 1. Select your desired artifact set from the dropdown menu.
 2. Choose the type of artifact you want to create a note for.
@@ -46,7 +48,7 @@ To install GAN-Genshin Artifact Notes, simply clone this repository and open ind
 
 ---
 
-### Credits
+### Credits 💳
 
 This application was created by [Alex-Nio](https://github.com/Alex-Nio).
 
@@ -56,6 +58,6 @@ Please note that this app is not affiliated with or endorsed by **miHoYo**, the 
 
 ---
 
-### License
+### License ☘️
 
 This project is licensed under the GNU license. See the LICENSE file for details.
