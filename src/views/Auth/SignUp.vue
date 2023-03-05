@@ -40,7 +40,12 @@
               </div>
             </div>
             <div class="form__actions">
-              <button class="form__btn" type="submit" :disabled="$v.$invalid">
+              <button
+                @click="handleLogin"
+                class="form__btn"
+                type="submit"
+                :disabled="$v.$invalid"
+              >
                 Войти
               </button>
               <button class="form__btn" type="button" @click="handleRegister">
@@ -59,21 +64,22 @@
   import { useRouter } from "vue-router";
   import { required, minLength, email } from "@vuelidate/validators";
   import { useVuelidate } from "@vuelidate/core";
+  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+  import { useStore } from "vuex";
 
+  const store = useStore();
   const router = useRouter(); // router
+
+  store.dispatch("setUserAndNotes");
 
   const state = reactive({
     email: "",
     password: "",
-    confirmPassword: "",
   });
-
-  const sameAs = (field) => (value, parentVm) => value === parentVm[field];
 
   const rules = {
     email: { required, email },
     password: { required, minLength: minLength(6) },
-    confirmPassword: { required, sameAsPassword: sameAs("password") },
   };
 
   const params = {
@@ -86,8 +92,15 @@
   const validations = useVuelidate(rules, state, { params });
   const $v = validations;
 
-  const handleSubmit = () => {
-    alert("Форма отправлена!");
+  const handleLogin = () => {
+    signInWithEmailAndPassword(getAuth(), state.email, state.password)
+      .then((data) => {
+        console.log("Login successful");
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
   };
 
   const handleRegister = () => {
@@ -140,6 +153,15 @@
         border: 2px solid rgba(36, 226, 229, 0.3);
         background-color: rgba(0, 0, 0, 0.8);
         transition: all 0.2s linear;
+      }
+      &:disabled {
+        color: #c3c3c3a4;
+        border: 2px solid rgba(132, 134, 134, 0.3);
+        background-color: rgba(110, 109, 109, 0.5);
+
+        &:hover {
+          pointer-events: none;
+        }
       }
     }
   }

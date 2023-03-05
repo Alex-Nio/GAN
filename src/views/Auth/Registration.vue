@@ -77,6 +77,7 @@
   import { useRouter } from "vue-router";
   import { required, minLength, email } from "@vuelidate/validators";
   import { useVuelidate } from "@vuelidate/core";
+  import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
   const router = useRouter(); // router
 
@@ -105,7 +106,14 @@
   const $v = validations;
 
   const handleSubmit = () => {
-    alert("Форма отправлена!");
+    createUserWithEmailAndPassword(getAuth(), state.email, state.password)
+      .then((data) => {
+        console.log("Register successful");
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
   };
 
   const handleLogin = () => {

@@ -91,7 +91,7 @@
 
 <script setup>
   // imports
-  import { ref, computed } from "vue";
+  import { ref, computed, onMounted } from "vue";
   import { useStore } from "vuex";
   const filter = ref("active");
   const store = useStore();
@@ -106,7 +106,7 @@
     } else if (filter.value === "completed") {
       return store.getters.noteCompleted;
     } else if (filter.value === "all") {
-      return store.getters.notes;
+      return store.getters.getNotes;
     }
     return filter.value === "active";
   });

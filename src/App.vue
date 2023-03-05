@@ -27,21 +27,25 @@
 </template>
 
 <script setup>
-  import { defineAsyncComponent, ref } from "vue";
+  import { defineAsyncComponent, ref, onMounted } from "vue";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/mainLogo.vue";
+  import { useStore } from "vuex";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
   );
 
+  const store = useStore();
   const showMenu = ref(false);
 
   const menuLinks = [
     { title: "Главная", url: "/" },
     { title: "Артефакты", url: "/artifacts" },
-    { title: "Логин", url: "/login" },
+    { title: "Войти", url: "/login" },
     { title: "Регистрация", url: "/registration" },
   ];
+
+  
 </script>
 
 <style lang="scss">
@@ -51,6 +55,7 @@
     position: relative;
     @include fdrjc_aic;
     padding: 20px 0;
+    height: 75px;
   }
 
   .logo {
