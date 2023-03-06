@@ -13,12 +13,17 @@
               ></button>
             </div>
             <div class="navbar-list__wrapper" :class="{ active: showMenu }">
-              <navigation-list :menuLinks="menuLinks"></navigation-list>
+              <mobile-logo></mobile-logo>
+              <navigation-list
+                @click="showMenu = !showMenu"
+                :menuLinks="menuLinks"
+              ></navigation-list>
             </div>
           </div>
         </div>
       </div>
     </header>
+    <!-- <Info></Info> -->
     <div class="content-wrapper">
       <router-view />
     </div>
@@ -27,6 +32,7 @@
 </template>
 
 <script setup>
+  import mobileLogo from "@/components/UI/mobileLogo.vue";
   import { defineAsyncComponent, ref, onMounted } from "vue";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/mainLogo.vue";
@@ -44,8 +50,6 @@
     { title: "Войти", url: "/login" },
     { title: "Регистрация", url: "/registration" },
   ];
-
-  
 </script>
 
 <style lang="scss">
@@ -95,9 +99,16 @@
     }
   }
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: 1366px) {
+    .navbar-list__wrapper {
+      justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
     .navbar-list__wrapper {
       display: none;
+      justify-content: center;
     }
 
     .navbar-actions {
@@ -105,7 +116,7 @@
       position: fixed;
       width: 82px;
       height: 82px;
-      top: 60px;
+      top: 50px;
       right: 20px;
       transform: translateY(-50%);
       z-index: 90;
@@ -166,7 +177,6 @@
       width: 100%;
       height: 100vh;
       background: rgba(36, 226, 229, 0.29);
-      border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -184,6 +194,39 @@
     }
     .navbar-item .navbar-link {
       font-size: 4rem;
+    }
+
+    .navbar-list .navbar-link {
+      font-size: 4rem;
+    }
+  }
+
+  @media screen and (max-width: 476px) {
+    .navbar-actions {
+      top: 40px;
+      width: 52px;
+      height: 52px;
+    }
+    .burger-btn {
+      width: 52px;
+      height: 52px;
+
+      &::before {
+        width: 52px;
+        height: 52px;
+      }
+
+      &::after {
+        width: 52px;
+        height: 52px;
+      }
+
+      &.active {
+        &::after {
+          width: 52px;
+          height: 52px;
+        }
+      }
     }
   }
 </style>

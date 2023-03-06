@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+src/data/genshin-artifact-notes-firebase-adminsdk-b15jy-775ad9260b.json
 
 
 # local env files

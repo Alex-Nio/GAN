@@ -27,6 +27,7 @@
   const props = defineProps({
     modelValue: String,
     currentArtifact: String,
+    kitSwitched: Boolean,
   });
   const emit = defineEmits(["currentDopStatsSelected"]);
 
@@ -52,13 +53,17 @@
 
   // reset all checkboxes to their default values
   watch(
-    () => [props.modelValue, props.currentArtifact],
+    () => [props.modelValue, props.currentArtifact, props.kitSwitched],
     () => {
       if (props.modelValue === "Выберите верхний стат") {
         blocked.value = true;
       } else {
         blocked.value = false;
       }
+
+      // if (props.kitSwitched || !props.kitSwitched) {
+      //   console.log("kit was swithed");
+      // }
 
       dopStats.value.forEach((value) => {
         value.checked = false;

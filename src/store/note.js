@@ -14,11 +14,7 @@ export default {
       state.user = user;
     },
     addNote(state, note) {
-      console.log(note);
-      console.log(state.notes);
-      note = Object.entries(note).map(([key, value]) => ({ [key]: value }));
-      console.log(note);
-      // state.notes.push(note);
+      state.notes.push(note);
     },
     deleteNote(state, noteIndex) {
       for (let i = 0; i < state.notes.length; i++) {
@@ -38,7 +34,17 @@ export default {
       const newNoteRef = push(notesRef);
       await set(newNoteRef, note);
 
-      commit("addNote", { ...note, id: newNoteRef.key });
+      const newNote = {
+        id: newNoteRef.key,
+        completed: note.completed,
+        extra: note.extra,
+        image: note.image,
+        main: note.main,
+        title: note.title,
+        type: note.type
+      };
+
+      commit("addNote", newNote);
     },
     // addNote({ commit }, note) {
     //   note.id = Math.random();

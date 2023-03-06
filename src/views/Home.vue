@@ -58,6 +58,7 @@
                 <extra-selection
                   v-model="selectedMainStat"
                   :currentArtifact="currentArtifact"
+                  :kitSwitched="kitSwitched"
                   @currentDopStatsSelected="currentDopStatsSelected"
                 ></extra-selection>
               </div>
@@ -140,13 +141,22 @@
   //? mutable properties
   let currentArtifactImage;
   let currentDopStats = [];
+  const kitSwitched = ref(false);
 
   // Kit selection on done
   const handleKitSelection = (item) => {
     mainTitle.value = item.name;
     currentKit.value = item;
+    currentArtifactImage = currentKit.value["images"][currentTypeIndex.value];
+
+    // reset
+    resetCheckboxes();
+  };
+
+  const resetCheckboxes = () => {
     // reset current dop stats array
     currentDopStats = [];
+    kitSwitched.value = !kitSwitched.value;
   };
 
   // Type selection on done
@@ -163,7 +173,7 @@
       selectedMainStat.value = "Выберите верхний стат";
     }
 
-    // reset current dop stats array
+    // reset
     currentDopStats = [];
   };
 
@@ -194,7 +204,7 @@
     selectionDone.value = true;
 
     // reset
-    currentDopStats = [];
+    resetCheckboxes();
   };
 
   // Note Creation
@@ -209,7 +219,7 @@
     //* Верхний стат
     // console.log(selectedMainStat.value);
     //* Доп статы
-    // console.log(Object.values(currentDopStats)[0]);
+    // console.log(Object.values(currentDopStats).map((item) => item.value));
 
     const note = {
       image: Object.values(currentArtifactImage)[0],
@@ -237,7 +247,9 @@
     store.dispatch("addNote", note);
   };
 
+  // set defaults
   onMounted(() => {
+    const currentArtifact = "Цветок";
     currentArtifactImage = currentKit.value["images"][0];
   });
 </script>
