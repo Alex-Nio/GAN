@@ -21,7 +21,7 @@
         >{{ link.title }}</router-link
       >
     </li>
-    <button v-if="isLoggedIn" lilass="navbar-link" @click="handleSignOut">Выйти</button>
+    <button class="navbar-link" v-if="isLoggedIn" @click="handleSignOut">Выйти</button>
   </ul>
 </template>
 
