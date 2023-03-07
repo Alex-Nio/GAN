@@ -1,13 +1,13 @@
 <template>
   <section>
     <actions-panel :activeFilter="filter" @filterToggle="filterToggle"></actions-panel>
-    <div class="container">
+    <div class="container--big">
       <div class="kits">
         <kits-list :kits="kits"></kits-list>
       </div>
-      <!-- <div class="notes">
+      <div class="notes">
         <notes-list :filteredNotes="filteredNotes"></notes-list>
-      </div> -->
+      </div>
     </div>
   </section>
 </template>
