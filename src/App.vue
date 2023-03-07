@@ -23,7 +23,6 @@
         </div>
       </div>
     </header>
-    <!-- <Info></Info> -->
     <div class="content-wrapper">
       <router-view />
     </div>
@@ -33,7 +32,7 @@
 
 <script setup>
   import mobileLogo from "@/components/UI/mobileLogo.vue";
-  import { defineAsyncComponent, ref, onMounted } from "vue";
+  import { defineAsyncComponent, ref } from "vue";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/mainLogo.vue";
   import { useStore } from "vuex";
