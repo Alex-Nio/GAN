@@ -46,7 +46,7 @@
   const menuLinks = [
     { title: "Главная", url: "/" },
     { title: "Артефакты", url: "/artifacts" },
-    { title: "Войти", url: "/login" },
+    { title: "Логин", url: "/login" },
     { title: "Регистрация", url: "/registration" },
   ];
 </script>

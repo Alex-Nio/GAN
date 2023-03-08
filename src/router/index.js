@@ -62,7 +62,7 @@ router.beforeEach(async (to, from, next) => {
     if (await getCurrentUser()) {
       next();
     } else {
-      console.log("У вас нет доступа");
+      // console.log("Пользователь не зарегистрирован");
       next("/registration");
     }
   } else {

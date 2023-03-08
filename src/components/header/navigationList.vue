@@ -4,7 +4,7 @@
       <router-link
         v-if="
           (!isLoggedIn && link.title == 'Регистрация') ||
-          (!isLoggedIn && link.title == 'Войти')
+          (!isLoggedIn && link.title == 'Логин')
         "
         class="navbar-link"
         :to="`${link.url}`"
