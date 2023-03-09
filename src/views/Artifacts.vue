@@ -1,20 +1,20 @@
 <template>
   <section>
-    <actions-panel :activeFilter="filter" @filterToggle="filterToggle"></actions-panel>
+    <!-- <actions-panel :activeFilter="filter" @filterToggle="filterToggle"></actions-panel> -->
     <div class="container--big">
       <div class="kits">
         <kits-list :kits="kits"></kits-list>
       </div>
-      <div class="notes">
+      <!-- <div class="notes">
         <notes-list :filteredNotes="filteredNotes"></notes-list>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 
 <script setup>
   // imports
-  import { ref, computed } from "vue";
+  import { ref, computed, watch } from "vue";
   import { useStore } from "vuex";
   import data from "@/data/data";
   import actionsPanel from "@/components/artifactsActionsPanel/actionsPanel.vue";
@@ -43,18 +43,24 @@
   const kits = computed(() => {
     const notes = store.getters.getNotes;
     const result = Object.values(
-      notes.reduce((acc, { id, title, total }) => {
+      notes.reduce((acc, { id, title, type }) => {
         if (acc[title]) {
           acc[title].count++;
         } else {
-          acc[title] = { id, title, count: 1 };
+          acc[title] = { id, title, types: [], count: 1 };
         }
+
+        if (!acc[title].types.includes(type)) {
+          acc[title].types.push(type);
+        }
+
         return acc;
       }, {})
     );
 
     // get kits data
     const kitsData = data.kits;
+    const artifactTypes = data.artifactTypes;
 
     // Add images to kits arr with kitItem object
     kitsData.forEach((kit) => {

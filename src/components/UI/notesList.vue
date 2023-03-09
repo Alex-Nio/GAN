@@ -25,4 +25,23 @@
   });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .notes {
+    width: 100%;
+    &__wrapper {
+    }
+
+    &__warning {
+    }
+  }
+  .notes-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 6px;
+    align-items: center;
+  }
+  .note-item {
+  }
+</style>
