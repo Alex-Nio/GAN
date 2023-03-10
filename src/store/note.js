@@ -87,6 +87,9 @@ export default {
       return state.notes.filter(note => {
         return !note.completed;
       });
+    },
+    getNotesByTitle: state => title => {
+      return state.notes.filter(note => note.title === title);
     }
   },
   modules: {}

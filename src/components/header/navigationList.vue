@@ -3,25 +3,22 @@
     <li v-for="link in menuLinks" :key="link.title" class="navbar-item" exact>
       <router-link
         v-if="
-          (!isLoggedIn && link.title == 'Регистрация') ||
-          (!isLoggedIn && link.title == 'Логин')
-        "
-        class="navbar-link"
-        :to="`${link.url}`"
-        >{{ link.title }}</router-link
-      >
-      <router-link
-        v-if="
           (isLoggedIn && link.title == 'Главная') ||
-          (isLoggedIn && link.title == 'Артефакты') ||
-          (isLoggedIn && link.title == 'Выйти')
+          (isLoggedIn && link.title == 'Наборы')
         "
         class="navbar-link"
         :to="`${link.url}`"
-        >{{ link.title }}</router-link
       >
+        {{ link.title }}
+      </router-link>
+      <a
+        v-if="isLoggedIn && link.title == 'Выйти'"
+        class="navbar-link"
+        @click="handleSignOut"
+      >
+        Выйти
+      </a>
     </li>
-    <button class="navbar-link" v-if="isLoggedIn" @click="handleSignOut">Выйти</button>
   </ul>
 </template>
 
@@ -40,10 +37,9 @@
     },
   });
 
-  let auth;
+  let auth = getAuth();
 
   onMounted(() => {
-    auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         isLoggedIn.value = true;
@@ -64,11 +60,32 @@
   @import "@/assets/scss/imports.scss";
 
   .navbar-link {
-    font-size: 2.2rem;
-    color: $white;
-    font-weight: $b;
+    @include fdrjc_aic;
+    padding: 14px 40px 23px 32px;
+    border-radius: 5px;
+    margin: 0 3px;
+    font-size: 1.4rem;
+    opacity: 0.65;
+    text-transform: uppercase;
+    background-image: linear-gradient(-180deg, #777353 0%, #777353 100%);
+    box-shadow: 0 1rem 1.25rem 0 #514f41, 0 -0.25rem 1.5rem #777353 inset,
+      0 0.75rem 0.5rem #514f41c4 inset, 0 0.25rem 0.5rem 0 #514f41c1 inset;
+
+    &:hover {
+      opacity: 1;
+    }
   }
   .router-link-active {
-    color: rgb(231, 246, 27);
+    &.navbar-link {
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 667px) {
+    .navbar-link {
+      width: 100%;
+      max-width: 120px;
+      margin: 10px;
+    }
   }
 </style>

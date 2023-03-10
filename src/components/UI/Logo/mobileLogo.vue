@@ -11,11 +11,11 @@
     display: none;
   }
 
-  @media screen and (max-width: 861px) {
+  @media screen and (max-width: 976px) {
     .mobile-logo {
       display: inline-block;
       position: absolute;
-      top: 15%;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 2.4rem;
@@ -24,8 +24,21 @@
       z-index: 30;
 
       & > img {
-        width: 300px;
+        width: 120px;
       }
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .mobile-logo {
+      left: 20px;
+      transform: translateX(0);
+    }
+  }
+
+  @media screen and (max-width: 220px) {
+    .mobile-logo {
+      display: none;
     }
   }
 </style>

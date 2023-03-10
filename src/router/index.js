@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import store from "../store";
 import HomeView from "../views/Home.vue";
-import Artifacts from "../views/Artifacts.vue";
+import Kits from "../views/Kits.vue";
+import Notes from "../views/Notes.vue";
 import Registration from "../views/Auth/Registration.vue";
 import Login from "../views/Auth/SignUp.vue";
 
@@ -16,9 +17,18 @@ const routes = [
     }
   },
   {
-    path: "/artifacts",
-    name: "artifacts",
-    component: Artifacts,
+    path: "/kits",
+    name: "kits",
+    component: Kits,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/notes/:title",
+    name: "notes",
+    component: Notes,
+    props: true,
     meta: {
       requiresAuth: true
     }

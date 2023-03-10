@@ -1,8 +1,12 @@
 <template>
   <div class="kits__wrapper">
     <ul class="kits-list">
-      <li class="kits-list__item" v-for="kit in kits">
-        <div class="kit-card">
+      <li class="kits-list__item" v-for="(kit, index) in kits" :key="index">
+        <div
+          class="kit-card"
+          :class="{ active: index === activeIndex }"
+          @click="toggleActive(kit, index)"
+        >
           <div class="kit-card__wrapper">
             <h3 class="kit-card__title">{{ kit.title }}</h3>
             <span class="kit-card__counter">Добавлено: {{ kit.count }}</span>
@@ -33,11 +37,20 @@
 </template>
 
 <script setup>
+  import { ref } from "vue";
   const props = defineProps({
     kits: {
       type: Array,
     },
   });
+
+  const emit = defineEmits(["pageChange"]);
+  const activeIndex = ref(-1);
+
+  const toggleActive = (kit, index) => {
+    activeIndex.value = index === activeIndex.value ? -1 : index;
+    emit("pageChange", kit);
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +64,7 @@
   .kits-list {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-column-gap: 10px;
     grid-row-gap: 6px;
     align-items: center;
@@ -62,6 +75,7 @@
   .kit-card {
     position: relative;
     @include fdcjs_ais;
+    display: inline-block;
     width: 100%;
     padding: 20px 30px 10px 30px;
     margin: 0 auto;
@@ -74,6 +88,11 @@
     line-height: 100%;
     transition: all 0.3s linear;
 
+    &.active {
+      background: rgba(27, 227, 207, 0.2);
+      transition: all 0.3s linear;
+    }
+
     &__wrapper {
       margin: 0 auto;
     }
@@ -82,7 +101,6 @@
       position: relative;
       display: inline-block;
       width: 68px;
-      height: 68px;
 
       &::before {
         content: "";
@@ -92,11 +110,8 @@
         right: 5px;
         bottom: 5px;
         background: rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
         border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 16px;
         z-index: -1;
       }
     }
@@ -112,7 +127,7 @@
     }
 
     &__title {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       text-align: center;
       margin: 30px 0 10px 0;
     }
@@ -133,6 +148,12 @@
       cursor: pointer;
       background: rgba(27, 227, 207, 0.2);
       transition: all 0.3s linear;
+    }
+  }
+
+  @media screen and (max-width: 1032px) {
+    .kit-card__images {
+      flex-wrap: wrap;
     }
   }
 </style>

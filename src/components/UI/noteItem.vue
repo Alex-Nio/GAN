@@ -5,16 +5,6 @@
         <button @click="deleteNote(index)" class="delete-btn"></button>
 
         <div class="artifact-card__row">
-          <!-- <label class="artifact-card__checkbox" for="completed-checkbox">
-            <input
-              class="artifact-card-input"
-              type="checkbox"
-              name="completed"
-              id="completed"
-              v-model="note.completed"
-            />
-            Завершить
-          </label> -->
           <div class="artifact-card__label">
             <span>{{ note.type }}</span>
           </div>
@@ -75,11 +65,16 @@
   @import "@/assets/scss/imports.scss";
 
   .note-item {
+    display: inline-flex;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
     &__content {
     }
   }
   .artifact-card {
     position: relative;
+    height: 100%;
 
     &.completed {
       filter: blur(3px);
@@ -88,16 +83,15 @@
     &__wrapper {
       @include fdcjs_ais;
       width: 100%;
-      max-width: 800px;
+      height: 100%;
       padding: 20px 30px 20px 30px;
-      margin: 0 auto 20px auto;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      font-size: 2rem;
+      font-size: 1.6rem;
       line-height: 100%;
     }
 
@@ -120,7 +114,8 @@
     }
 
     &__image {
-      width: 200px;
+      display: inline-flex;
+      width: 140px;
     }
 
     &__title {

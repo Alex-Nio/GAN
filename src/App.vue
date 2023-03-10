@@ -2,23 +2,28 @@
   <div class="full-wrapper">
     <header>
       <div class="navbar">
-        <div class="container">
-          <div class="navbar-content">
-            <main-logo></main-logo>
-            <div class="navbar-actions">
-              <button
-                @click="showMenu = !showMenu"
-                class="burger-btn"
-                :class="{ active: showMenu }"
-              ></button>
-            </div>
-            <div class="navbar-list__wrapper" :class="{ active: showMenu }">
-              <mobile-logo></mobile-logo>
-              <navigation-list
-                @click="showMenu = !showMenu"
-                :menuLinks="menuLinks"
-              ></navigation-list>
-            </div>
+        <div class="navbar-content">
+          <main-logo></main-logo>
+          <div class="navbar-actions">
+            <button
+              @click="toggleMenu"
+              class="burger-btn"
+              :class="{ active: showMenu }"
+            ></button>
+          </div>
+          <div class="navbar-list__wrapper" :class="{ active: showMenu }">
+            <mobile-logo></mobile-logo>
+            <navigation-list
+              @click="showMenu = !showMenu"
+              :menuLinks="menuLinks"
+            ></navigation-list>
+            <ul class="registration-items">
+              <li v-for="link in registrationItems">
+                <router-link class="registration-items__item" :to="`${link.url}`">{{
+                  link.title
+                }}</router-link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -31,10 +36,10 @@
 </template>
 
 <script setup>
-  import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
-  import { defineAsyncComponent, ref } from "vue";
+  import { defineAsyncComponent, ref, onMounted, onUnmounted } from "vue";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/Logo/mainLogo.vue";
+  import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
   import { useStore } from "vuex";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
@@ -43,9 +48,18 @@
   const store = useStore();
   const showMenu = ref(false);
 
+  const toggleMenu = () => {
+    showMenu.value = !showMenu.value;
+    document.body.classList.toggle("no-scroll", showMenu.value);
+  };
+
   const menuLinks = [
+    { title: "Наборы", url: "/kits" },
     { title: "Главная", url: "/" },
-    { title: "Артефакты", url: "/artifacts" },
+    { title: "Выйти", url: "/registration" },
+  ];
+
+  const registrationItems = [
     { title: "Логин", url: "/login" },
     { title: "Регистрация", url: "/registration" },
   ];
@@ -54,85 +68,147 @@
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
 
+  .navbar {
+    margin-bottom: 10px;
+  }
+
   .navbar-content {
     position: relative;
-    @include fdrjc_aic;
-    padding: 20px 0;
-    height: 75px;
-  }
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 54px;
+    z-index: 55;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    background: rgb(60, 76, 74);
+    background: linear-gradient(
+      180deg,
+      rgba(60, 76, 74, 1) 0%,
+      rgba(52, 65, 62, 0.8) 35%,
+      rgba(45, 54, 52, 1) 100%
+    );
 
-  .logo {
-    display: flex;
-    flex: 0 1 15%;
-    justify-content: center;
-  }
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      width: 20vw;
+      border-bottom: 4px solid #777353;
+    }
+    &:before {
+      left: 100px;
+    }
 
-  .burger-btn {
-    display: none;
+    &:after {
+      right: 100px;
+    }
   }
-
   .navbar-actions {
     display: none;
   }
-
+  .burger-btn {
+    display: none;
+  }
   .navbar-list {
-    @include fdr;
-    &__wrapper {
-      @include fdrjc_aic;
-      flex: 0 1 85%;
+    @include fdrjc_aic;
+    padding: 15px 40px 0 40px;
+    background: rgb(60, 76, 74);
+    background: linear-gradient(
+      180deg,
+      rgba(60, 76, 74, 1) 0%,
+      rgba(52, 65, 62, 0.8) 35%,
+      rgba(45, 54, 52, 1) 100%
+    );
+    box-shadow: 0 0.25rem 0.5rem 0 #514f411c;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    height: 54px;
 
-      &.active {
-        display: flex;
+    &__wrapper {
+      margin-bottom: 20px;
+    }
+  }
+  .registration-items {
+    @include fdrjc_aic;
+    position: absolute;
+    top: 50%;
+    right: 120px;
+    transform: translateY(-50%);
+
+    & li {
+      &:first-child {
+        margin-right: 15px;
+      }
+    }
+
+    &__item {
+    }
+  }
+
+  @media screen and (max-width: 1060px) {
+    .navbar-content {
+      &:before,
+      &:after {
+        display: none;
       }
     }
   }
-  .navbar-item {
-    margin: 0 20px;
 
-    &:first-child {
-      margin-left: 0;
+  @media screen and (max-width: 976px) {
+    .navbar-content {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
     }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  @media screen and (max-width: 1366px) {
-    .navbar-list__wrapper {
-      justify-content: flex-end;
-    }
-  }
-
-  @media screen and (max-width: 860px) {
-    .navbar-list__wrapper {
+    .navbar-list {
       display: none;
-      justify-content: center;
+    }
+
+    .navbar-list__wrapper {
+      margin-bottom: 0;
+
+      &.active {
+        padding: 70px 20px;
+        background: rgb(60, 76, 74);
+        animation: fadeIn 0.3s linear;
+
+        & .navbar-list {
+          display: flex;
+          flex-wrap: wrap;
+          background: transparent;
+          padding: 10px 0;
+        }
+      }
+    }
+
+    .registration-items {
+      right: unset;
+      left: 60px;
     }
 
     .navbar-actions {
-      display: inline-flex;
-      position: fixed;
-      width: 82px;
-      height: 82px;
-      top: 50px;
-      right: 20px;
-      transform: translateY(-50%);
-      z-index: 90;
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      height: 54px;
     }
 
     .burger-btn {
       display: inline-flex;
-      position: relative;
-      width: 62px;
-      height: 62px;
+      position: fixed;
+      top: 3px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
       opacity: 0.5;
+      z-index: 30;
 
       &::before {
         content: "";
         position: absolute;
-        width: 82px;
-        height: 82px;
+        width: 48px;
+        height: 48px;
         top: 0;
         left: 0;
         right: 0;
@@ -143,8 +219,8 @@
       &::after {
         content: "";
         position: absolute;
-        width: 82px;
-        height: 82px;
+        width: 48px;
+        height: 48px;
         top: 0;
         left: 0;
         right: 0;
@@ -157,8 +233,8 @@
         &::after {
           content: "";
           position: absolute;
-          width: 82px;
-          height: 82px;
+          width: 48px;
+          height: 48px;
           top: 0;
           left: 0;
           right: 0;
@@ -168,62 +244,33 @@
         }
       }
     }
-
-    .navbar-list__wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(36, 226, 229, 0.29);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 85;
-      animation: fadeIn 0.3s linear;
-    }
-
-    .navbar-list {
-      @include fdcjc_aic;
-      text-align: center;
-    }
-
-    .navbar-item {
-      margin: 10px 0;
-    }
-    .navbar-item .navbar-link {
-      font-size: 4rem;
-    }
-
-    .navbar-list .navbar-link {
-      font-size: 4rem;
-    }
   }
 
-  @media screen and (max-width: 476px) {
-    .navbar-actions {
-      top: 40px;
-      width: 52px;
-      height: 52px;
+  @media screen and (max-width: 667px) {
+    .registration-items {
+      display: none;
     }
-    .burger-btn {
-      width: 52px;
-      height: 52px;
 
-      &::before {
-        width: 52px;
-        height: 52px;
-      }
-
-      &::after {
-        width: 52px;
-        height: 52px;
-      }
+    .navbar-list__wrapper {
+      margin-bottom: 0;
 
       &.active {
-        &::after {
-          width: 52px;
-          height: 52px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        & .registration-items {
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          left: unset;
+
+          & li {
+            &:first-child {
+              margin-right: 0;
+              margin-bottom: 20px;
+            }
+          }
         }
       }
     }

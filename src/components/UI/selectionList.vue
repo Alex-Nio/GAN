@@ -191,4 +191,19 @@
       flex-wrap: wrap;
     }
   }
+
+  @media screen and (max-width: 378px) {
+    .selection-list {
+      grid-template-columns: repeat(auto-fill, minmax(76px, 76px));
+    }
+    .selection-item {
+      width: 76px;
+      height: 76px;
+
+      & img {
+        width: 76px;
+        height: 76px;
+      }
+    }
+  }
 </style>

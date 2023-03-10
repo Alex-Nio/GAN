@@ -1,17 +1,14 @@
 <template>
   <div class="notes__wrapper">
-    <ul v-if="filteredNotes.length != 0" class="notes-list">
+    <ul class="notes-list">
       <note-item
         v-for="(note, index) in filteredNotes"
         class="note-item"
         :note="note"
         :class="{ completed: note.completed }"
-        :key="note.title"
+        :key="note.id"
       ></note-item>
     </ul>
-    <div class="notes__warning" v-else>
-      <p>Пожалуйста, сперва добавьте артефакт в отслеживаемые</p>
-    </div>
   </div>
 </template>
 
@@ -29,6 +26,7 @@
   .notes {
     width: 100%;
     &__wrapper {
+      width: 100%;
     }
 
     &__warning {
@@ -37,11 +35,14 @@
   .notes-list {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
-    grid-column-gap: 10px;
-    grid-row-gap: 6px;
-    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 20px;
+    margin: 30px 0;
   }
-  .note-item {
+
+  @media screen and (max-width: 631px) {
+    .notes-list {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

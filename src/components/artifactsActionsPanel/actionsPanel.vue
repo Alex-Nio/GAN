@@ -83,7 +83,6 @@
   };
 
   onMounted(() => {
-    console.log(window.innerWidth);
     if (window.innerWidth <= 461) {
       mobileView.value = true;
       showBtns.value = false;
@@ -103,11 +102,12 @@
   .actions-panel {
     @include fdrjc_aic;
     width: 100%;
+    padding: 45px 0;
+    margin-top: 30px;
     background: rgba(60, 46, 155, 0.64);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
-    padding: 45px 0;
     &__wrapper {
       width: 100%;
       max-width: 1440px;

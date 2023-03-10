@@ -9,7 +9,6 @@ import "animate.css";
 import "./assets/scss/main.scss";
 
 const app = createApp(App);
-
 const imports = [router, store];
 
 imports.forEach(item => {

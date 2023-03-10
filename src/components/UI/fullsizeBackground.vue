@@ -9,22 +9,22 @@
         muted
         @canplay="showDesktopVideo = true"
       ></video>
-      <video
+      <!-- <video
         v-if="showTabletVideo"
         :src="tabletVideoSrc"
         autoplay
         loop
         muted
         @canplay="showTabletVideo = true"
-      ></video>
-      <video
+      ></video> -->
+      <!-- <video
         v-if="showMobileVideo"
         :src="mobileVideoSrc"
         autoplay
         loop
         muted
         @canplay="showMobileVideo = true"
-      ></video>
+      ></video> -->
     </div>
   </div>
 </template>
@@ -53,14 +53,14 @@
   // Функция, которая вызывается при изменении размера окна
   const handleResize = () => {
     if (window.innerWidth <= 440) {
-      showDesktopVideo.value = false;
-      showTabletVideo.value = false;
-      showMobileVideo.value = true;
+      // showDesktopVideo.value = false;
+      // showTabletVideo.value = false;
+      // showMobileVideo.value = true;
       //   console.log(`Показано видео для мобильных: ${window.innerWidth}`);
     } else if (window.innerWidth >= 441 && window.innerWidth <= 1279) {
-      showDesktopVideo.value = false;
-      showTabletVideo.value = true;
-      showMobileVideo.value = false;
+      // showDesktopVideo.value = false;
+      // showTabletVideo.value = true;
+      // showMobileVideo.value = false;
       //   console.log(`Видео выключено: ${window.innerWidth}`);
     }
 
@@ -75,7 +75,7 @@
 
 <style lang="scss" scoped>
   .video-background {
-    background: url("@/assets/img/bg.jpg") no-repeat center / cover;
+    background: url("@/assets/img/bg.png") no-repeat center / cover;
     position: fixed;
     top: -10px;
     right: -10px;
@@ -106,6 +106,12 @@
     .video-foreground {
       width: 300%;
       left: -100%;
+    }
+  }
+
+  @media screen and (max-width: 876px) {
+    .video-background {
+      left: -400px;
     }
   }
 </style>

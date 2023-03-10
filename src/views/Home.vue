@@ -182,7 +182,7 @@
 
   // Change page on artifact created
   const handlePageChange = () => {
-    router.push("/artifacts");
+    router.push("/kits");
   };
 
   // Handle complete add artifacts by user
