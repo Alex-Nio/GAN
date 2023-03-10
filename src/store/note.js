@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, remove } from "firebase/database";
 
 export default {
   state: {
@@ -67,8 +67,16 @@ export default {
         commit("setNotes", notes);
       });
     },
-    deleteNote({ commit }, noteIndex) {
-      commit("deleteNote", noteIndex);
+    async deleteNote({ commit, state }, noteId) {
+      const user = getAuth().currentUser;
+      if (!user) {
+        return;
+      }
+      const noteDbId = state.notes.filter(note => note.id === noteId);
+      const noteRef = ref(getDatabase(), `users/${user.uid}/notes/${noteId}`);
+      await remove(noteRef);
+
+      commit("deleteNote", noteDbId);
     }
   },
   getters: {

@@ -5,6 +5,9 @@
         <kits-list :kits="kits" @pageChange="pageChange"></kits-list>
       </div>
     </div>
+    <div v-if="kits.length == 0" class="notes__warning">
+      <p>Пожалуйста, сперва добавьте артефакт в отслеживаемые</p>
+    </div>
   </section>
 </template>
 
@@ -66,6 +69,21 @@
 
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
+
+  .notes {
+    &__warning {
+      font-size: 3rem;
+      margin: 40px 0;
+      padding: 45px 0;
+      background: rgba(60, 46, 155, 0.64);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(60, 46, 155, 0.16);
+      text-align: center;
+    }
+  }
 
   .completed-action {
     @include fdrjc_aic;

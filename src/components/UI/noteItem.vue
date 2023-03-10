@@ -2,7 +2,7 @@
   <li>
     <div class="artifact-card">
       <div class="artifact-card__wrapper">
-        <button @click="deleteNote(index)" class="delete-btn"></button>
+        <button @click="deleteNote(note.id)" class="delete-btn"></button>
 
         <div class="artifact-card__row">
           <div class="artifact-card__label">
@@ -10,8 +10,15 @@
           </div>
         </div>
 
-        <div class="artifact-card__row">
-          <span><strong>Набор:</strong> {{ note.title }}</span>
+        <div class="artifact-card__column">
+          <span class="artifact-card__kit-name"
+            ><strong>Набор: </strong>{{ note.title }}</span
+          >
+          <div class="artifact-card__title">
+            <span
+              >Верхний стат: <strong>{{ note.main }}</strong></span
+            >
+          </div>
         </div>
 
         <div class="artifact-card__row">
@@ -24,10 +31,7 @@
           </div>
 
           <div class="artifact-card__column">
-            <div class="artifact-card__title">
-              <span>Верхний стат:</span><strong>{{ note.main }}</strong>
-            </div>
-            <p>Доп статы:</p>
+            <!-- <p class="extra-stats-title">Доп статы:</p> -->
             <div class="artifact-stats">
               <div class="artifact-stats__wrapper">
                 <span
@@ -56,8 +60,8 @@
     note: Object,
   });
 
-  const deleteNote = (index) => {
-    store.dispatch("deleteNote", index);
+  const deleteNote = (id) => {
+    store.dispatch("deleteNote", id);
   };
 </script>
 
@@ -119,6 +123,13 @@
     }
 
     &__title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    &__kit-name {
+      font-size: 2.3rem;
+      margin-bottom: 10px;
     }
   }
   .delete-btn {
@@ -138,13 +149,31 @@
       transition: all 0.3s linear;
     }
   }
-  .artifact-card-input {
+
+  .extra-stats-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
   }
+
   .artifact-stats {
+    width: 100%;
     &__wrapper {
     }
 
     &__item {
+      padding: 5px 15px;
+      margin: 5px;
+      background-color: teal;
+      font-size: 1.4rem;
+      border-radius: 15px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 </style>

@@ -4,7 +4,7 @@
       <div class="actions-panel__wrapper">
         <h1 class="notes-title">Отслеживаемые наборы:</h1>
         <button @click="showActions" class="actions-panel__toggle">Toggler</button>
-        <transition
+        <!-- <transition
           mode="out-in"
           enter-active-class="animate__animated animate__fadeInLeft"
           leave-active-class="animate__animated animate__fadeOutLeft"
@@ -18,7 +18,7 @@
               @click="button.handler"
             ></filter-btn>
           </div>
-        </transition>
+        </transition> -->
       </div>
     </div>
   </div>
