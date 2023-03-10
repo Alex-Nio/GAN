@@ -1,6 +1,6 @@
 <template>
   <router-link to="/" class="logo">
-    <img src="@/assets/img/main-logo.svg" alt="logo" />
+    <img src="" alt="logo" />
   </router-link>
 </template>
 
@@ -12,13 +12,10 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: rgb(231, 246, 27);
     z-index: 30;
 
     & > img {
-      width: 290px;
+      width: 92px;
     }
   }
 

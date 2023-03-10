@@ -62,10 +62,6 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  // .navbar-list {
-  // }
-  // .navbar-item {
-  // }
 
   .navbar-link {
     font-size: 2.2rem;

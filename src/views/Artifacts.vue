@@ -1,20 +1,20 @@
 <template>
   <section>
-    <!-- <actions-panel :activeFilter="filter" @filterToggle="filterToggle"></actions-panel> -->
+    <actions-panel :activeFilter="filter" @filterToggle="filterToggle"></actions-panel>
     <div class="container--big">
       <div class="kits">
         <kits-list :kits="kits"></kits-list>
       </div>
-      <!-- <div class="notes">
+      <div class="notes">
         <notes-list :filteredNotes="filteredNotes"></notes-list>
-      </div> -->
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
   // imports
-  import { ref, computed, watch } from "vue";
+  import { ref, computed } from "vue";
   import { useStore } from "vuex";
   import data from "@/data/data";
   import actionsPanel from "@/components/artifactsActionsPanel/actionsPanel.vue";

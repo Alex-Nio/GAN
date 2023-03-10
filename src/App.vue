@@ -31,10 +31,10 @@
 </template>
 
 <script setup>
-  import mobileLogo from "@/components/UI/mobileLogo.vue";
+  import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
   import { defineAsyncComponent, ref } from "vue";
   import navigationList from "@/components/header/navigationList.vue";
-  import mainLogo from "@/components/UI/mainLogo.vue";
+  import mainLogo from "@/components/UI/Logo/mainLogo.vue";
   import { useStore } from "vuex";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
