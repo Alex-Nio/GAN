@@ -116,9 +116,9 @@
     background: rgb(60, 76, 74);
     background: linear-gradient(
       180deg,
-      rgba(60, 76, 74, 1) 0%,
-      rgba(52, 65, 62, 0.8) 35%,
-      rgba(45, 54, 52, 1) 100%
+      rgb(30, 146, 131) 0%,
+      rgba(79, 167, 147, 0.8) 35%,
+      rgb(53, 100, 89) 100%
     );
     box-shadow: 0 0.25rem 0.5rem 0 #514f411c;
     border-bottom-left-radius: 60px;

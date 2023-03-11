@@ -54,7 +54,7 @@ const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = getAuth().onAuthStateChanged(user => {
       store
-        .dispatch("setUserAndNotes")
+        .dispatch("Authorization")
         .then(() => {
           unsubscribe();
           resolve(user);

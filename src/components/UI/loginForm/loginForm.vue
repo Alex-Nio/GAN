@@ -60,7 +60,7 @@
   const store = useStore();
   const router = useRouter();
 
-  store.dispatch("setUserAndNotes");
+  store.dispatch("Authorization");
 
   const state = reactive({
     email: "",

@@ -69,7 +69,7 @@
     text-transform: uppercase;
     background-image: linear-gradient(-180deg, #777353 0%, #777353 100%);
     box-shadow: 0 1rem 1.25rem 0 #514f41, 0 -0.25rem 1.5rem #777353 inset,
-      0 0.75rem 0.5rem #514f41c4 inset, 0 0.25rem 0.5rem 0 #514f41c1 inset;
+      0 0.75rem 0.5rem #514f41c4 inset, 0 0.25rem 0.5rem 0 #514f41 inset;
 
     &:hover {
       opacity: 1;

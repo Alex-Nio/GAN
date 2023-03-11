@@ -3,7 +3,8 @@
     <div class="container">
       <div class="actions-panel__wrapper">
         <h1 class="notes-title">Отслеживаемые наборы:</h1>
-        <button @click="showActions" class="actions-panel__toggle">Toggler</button>
+        <!-- <button @click="showActions" class="actions-panel__toggle">Toggler</button> -->
+        <button class="go-back-btn" @click="handleClick">Вернуться</button>
         <!-- <transition
           mode="out-in"
           enter-active-class="animate__animated animate__fadeInLeft"
@@ -27,10 +28,12 @@
 <script setup>
   // imports
   import { ref, onMounted, onUnmounted } from "vue";
+  import { useRouter } from "vue-router";
   import filterBtn from "@/components/UI/filterBtn.vue";
 
   // Emits
   const emit = defineEmits(["filterToggle"]);
+  const router = useRouter();
 
   // Props
   const props = defineProps({
@@ -72,6 +75,10 @@
     mobileView.value = !mobileView.value;
   };
 
+  const handleClick = () => {
+    router.push("/kits");
+  };
+
   const handleResize = () => {
     if (window.innerWidth <= 461) {
       mobileView.value = true;
@@ -102,9 +109,9 @@
   .actions-panel {
     @include fdrjc_aic;
     width: 100%;
-    padding: 45px 0;
+    padding: 25px 0;
     margin-top: 30px;
-    background: rgba(60, 46, 155, 0.64);
+    background: rgba(52, 236, 239, 0.4);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
@@ -122,10 +129,11 @@
   .notes-title {
     color: $white;
     font-size: 2.8rem;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
-  .filter-btn {
+  .filter-btn,
+  .go-back-btn {
     display: inline-block;
     width: 100%;
     max-width: fit-content;
@@ -143,7 +151,7 @@
     }
 
     &:hover {
-      background-color: teal;
+      background-color: #514f41;
       transition: all 0.3s linear;
     }
 

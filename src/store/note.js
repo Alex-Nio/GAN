@@ -46,11 +46,7 @@ export default {
 
       commit("addNote", newNote);
     },
-    // addNote({ commit }, note) {
-    //   note.id = Math.random();
-    //   commit("addNote", note);
-    // },
-    async setUserAndNotes({ commit }) {
+    async Authorization({ commit }) {
       const user = getAuth().currentUser;
       if (!user) {
         return;

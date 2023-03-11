@@ -57,7 +57,7 @@
       font-size: 3rem;
       margin: 40px 0;
       padding: 45px 0;
-      background: rgba(60, 46, 155, 0.64);
+      background: rgba(52, 236, 239, 0.4);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(5px);
