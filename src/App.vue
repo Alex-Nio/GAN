@@ -1,6 +1,6 @@
 <template>
   <div class="full-wrapper">
-    <header>
+    <header class="on-scroll">
       <div class="navbar">
         <div class="navbar-content">
           <main-logo></main-logo>
@@ -27,6 +27,7 @@
     </div>
     <fullsize-background></fullsize-background>
   </div>
+  <main-footer></main-footer>
 </template>
 
 <script setup>
@@ -35,6 +36,7 @@
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/Logo/mainLogo.vue";
   import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
+  import mainFooter from "@/components/footer/mainFooter.vue";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
   );
@@ -63,6 +65,19 @@
 
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
+
+  .content-wrapper {
+    margin-top: 54px;
+  }
+
+  header {
+    &.on-scroll {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+  }
 
   .navbar {
     margin-bottom: 10px;

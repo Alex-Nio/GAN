@@ -44,7 +44,7 @@
 
   .btn-container {
     @include fdcjc_aic;
-    width: 100%;
+    margin: auto;
   }
   .custom-svg {
     position: absolute;

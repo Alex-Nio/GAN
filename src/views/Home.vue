@@ -1,5 +1,5 @@
 <template>
-  <div class="content-wrapper">
+  <main>
     <section>
       <div class="container">
         <div class="control-panel">
@@ -56,6 +56,7 @@
                   </div>
                 </div>
               </div>
+              <create-btn @createNote="createNote"></create-btn>
             </div>
           </div>
         </div>
@@ -72,7 +73,7 @@
         @handlePageChange="handlePageChange"
       ></popup-default>
     </custom-popup>
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -240,8 +241,8 @@
   }
   .control-panel {
     &__column {
-      &:last-child {
-        margin-left: 93px;
+      &:first-child {
+        margin-right: 93px;
       }
     }
 

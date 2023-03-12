@@ -79,7 +79,7 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  $imageWidth: 100%;
+  $imageWidth: 87px;
 
   .selection-list {
     display: grid;
