@@ -1,14 +1,18 @@
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, push, set, onValue, remove } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, remove, onChildAdded } from "firebase/database";
 
 export default {
   state: {
     user: null,
-    notes: []
+    notes: [],
+    collections: []
   },
   mutations: {
     setNotes(state, notes) {
       state.notes = notes;
+    },
+    setCollections(state, items) {
+      state.collections = items;
     },
     setUser(state, user) {
       state.user = user;
@@ -25,6 +29,17 @@ export default {
     }
   },
   actions: {
+    async setCollections({ commit }, kitsCollection) {
+      const user = getAuth().currentUser;
+      if (!user) {
+        return;
+      }
+      const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
+      const newCollectionRef = push(collectionsRef);
+      await set(newCollectionRef, kitsCollection);
+
+      commit("setCollections", kitsCollection);
+    },
     async addNote({ commit, state }, note) {
       const user = getAuth().currentUser;
       if (!user) {
@@ -62,6 +77,15 @@ export default {
         });
         commit("setNotes", notes);
       });
+
+      const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
+      onChildAdded(collectionsRef, childSnapshot => {
+        const newCollection = {
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        };
+        commit("setCollections", newCollection);
+      });
     },
     async deleteNote({ commit, state }, noteId) {
       const user = getAuth().currentUser;
@@ -82,15 +106,8 @@ export default {
     getNotes(state) {
       return state.notes;
     },
-    noteCompleted(state) {
-      return state.notes.filter(note => {
-        return note.completed;
-      });
-    },
-    noteNotCompleted(state) {
-      return state.notes.filter(note => {
-        return !note.completed;
-      });
+    getCollections(state) {
+      return state.collections;
     },
     getNotesByTitle: state => title => {
       return state.notes.filter(note => note.title === title);

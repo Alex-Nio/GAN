@@ -40,6 +40,12 @@ body {
     }
 }
 
+@media screen and (max-width: 976px) {
+    body.no-scroll {
+        position: relative;
+    }
+}
+
 //? Общая обёртка
 .full-wrapper {
     display: flex;

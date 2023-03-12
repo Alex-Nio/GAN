@@ -4,26 +4,20 @@
       <div class="navbar">
         <div class="navbar-content">
           <main-logo></main-logo>
-          <div class="navbar-actions">
+          <div v-if="isLoggedIn" class="navbar-actions">
             <button
               @click="toggleMenu"
               class="burger-btn"
               :class="{ active: showMenu }"
             ></button>
           </div>
-          <div class="navbar-list__wrapper" :class="{ active: showMenu }">
+          <div
+            @click="toggleMenu"
+            class="navbar-list__wrapper"
+            :class="{ active: showMenu }"
+          >
             <mobile-logo></mobile-logo>
-            <navigation-list
-              @click="showMenu = !showMenu"
-              :menuLinks="menuLinks"
-            ></navigation-list>
-            <ul class="registration-items">
-              <li v-for="link in registrationItems">
-                <router-link class="registration-items__item" :to="`${link.url}`">{{
-                  link.title
-                }}</router-link>
-              </li>
-            </ul>
+            <navigation-list></navigation-list>
           </div>
         </div>
       </div>
@@ -37,32 +31,34 @@
 
 <script setup>
   import { defineAsyncComponent, ref, onMounted, onUnmounted } from "vue";
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/Logo/mainLogo.vue";
   import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
-  import { useStore } from "vuex";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
   );
 
-  const store = useStore();
   const showMenu = ref(false);
+  const isLoggedIn = ref(false);
+  let auth = getAuth();
+
+  onMounted(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        isLoggedIn.value = true;
+      } else {
+        isLoggedIn.value = false;
+      }
+    });
+  });
 
   const toggleMenu = () => {
-    showMenu.value = !showMenu.value;
-    document.body.classList.toggle("no-scroll", showMenu.value);
+    if (window.innerWidth <= 976) {
+      showMenu.value = !showMenu.value;
+      document.body.classList.toggle("no-scroll", showMenu.value);
+    }
   };
-
-  const menuLinks = [
-    { title: "Наборы", url: "/kits" },
-    { title: "Главная", url: "/" },
-    { title: "Выйти", url: "/registration" },
-  ];
-
-  const registrationItems = [
-    { title: "Логин", url: "/login" },
-    { title: "Регистрация", url: "/registration" },
-  ];
 </script>
 
 <style lang="scss">
@@ -168,6 +164,7 @@
       margin-bottom: 0;
 
       &.active {
+        width: 100%;
         padding: 70px 20px;
         background: rgb(60, 76, 74);
         animation: fadeIn 0.3s linear;

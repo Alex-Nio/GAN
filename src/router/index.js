@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import store from "../store";
 import HomeView from "../views/Home.vue";
 import Kits from "../views/Kits.vue";
 import Notes from "../views/Notes.vue";
 import Registration from "../views/Auth/Registration.vue";
 import Login from "../views/Auth/SignUp.vue";
+import Collections from "../views/Collections.vue";
 
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
     name: "notes",
     component: Notes,
     props: true,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/collections",
+    name: "collections",
+    component: Collections,
     meta: {
       requiresAuth: true
     }

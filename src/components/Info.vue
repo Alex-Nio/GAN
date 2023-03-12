@@ -20,7 +20,7 @@
     state.loading = true;
     try {
       const UID = 707439558;
-      const response = await axios.get(`https://enka.network/api/uid/${UID}`);
+      const response = await axios.get(`https://enka.network/api/uid/${UID}/?info`);
       state.data = response.data;
       data.value = state.data;
     } catch (error) {

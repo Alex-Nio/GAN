@@ -57,7 +57,7 @@
       <button class="form__btn" type="submit" :disabled="$v.$invalid">
         Создать аккаунт
       </button>
-      <button class="form__btn" type="button" @click="handleLogin">Войти</button>
+      <button class="form__btn" type="button" @click="handleLogin">Вход</button>
     </div>
   </form>
 </template>

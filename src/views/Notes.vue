@@ -46,7 +46,6 @@
 
   .notes {
     position: relative;
-    padding: 0 20px;
     height: 100%;
 
     &__btns {

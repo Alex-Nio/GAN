@@ -37,6 +37,15 @@
     margin: 45px 0;
   }
 
+  @media screen and (max-width: 876px) {
+    .section-title {
+      text-align: center;
+    }
+    .form-container {
+      @include fdrjc_aic;
+    }
+  }
+
   @media screen and (max-width: 378px) {
     .section-title {
       font-size: 3.6rem;

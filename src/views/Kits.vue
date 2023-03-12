@@ -1,5 +1,6 @@
 <template>
   <section>
+    <actions-panel></actions-panel>
     <div class="container">
       <div class="kits">
         <kits-list :kits="kits" @pageChange="pageChange"></kits-list>
@@ -16,6 +17,7 @@
   import { ref, computed } from "vue";
   import { useStore } from "vuex";
   import data from "@/data/data";
+  import actionsPanel from "@/components/artifactsActionsPanel/actionsPanel.vue";
   import kitsList from "@/components/UI/kitsList.vue";
   import { useRouter } from "vue-router";
 
@@ -61,6 +63,8 @@
         }
       });
     });
+
+    store.dispatch("setCollections", result);
 
     // return computed items
     return result;

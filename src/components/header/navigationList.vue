@@ -4,20 +4,31 @@
       <router-link
         v-if="
           (isLoggedIn && link.title == 'Главная') ||
-          (isLoggedIn && link.title == 'Наборы')
+          (isLoggedIn && link.title == 'Наборы') ||
+          (isLoggedIn && link.title == 'Мои коллекции')
         "
         class="navbar-link"
         :to="`${link.url}`"
       >
         {{ link.title }}
       </router-link>
-      <a
-        v-if="isLoggedIn && link.title == 'Выйти'"
-        class="navbar-link"
-        @click="handleSignOut"
+    </li>
+  </ul>
+  <ul @click.stop class="registration-items">
+    <li v-for="link in registrationItems" :key="link.url">
+      <router-link
+        v-if="!isLoggedIn && link.title !== 'Выйти'"
+        class="registration-items__item"
+        :to="`${link.url}`"
+        >{{ link.title }}</router-link
       >
-        Выйти
-      </a>
+      <router-link
+        v-if="isLoggedIn && link.title == 'Выйти'"
+        class="registration-items__item"
+        @click.stop="handleSignOut"
+        :to="`${link.url}`"
+        >{{ link.title }}</router-link
+      >
     </li>
   </ul>
 </template>
@@ -30,12 +41,17 @@
   const router = useRouter(); // router
   const isLoggedIn = ref(false);
 
-  const props = defineProps({
-    menuLinks: {
-      type: Array,
-      default: [],
-    },
-  });
+  const menuLinks = [
+    { title: "Главная", url: "/" },
+    { title: "Наборы", url: "/kits" },
+    { title: "Мои коллекции", url: "/collections" },
+  ];
+
+  const registrationItems = [
+    { title: "Логин", url: "/login" },
+    { title: "Регистрация", url: "/registration" },
+    { title: "Выйти", url: "/registration" },
+  ];
 
   let auth = getAuth();
 
@@ -65,19 +81,23 @@
     border-radius: 5px;
     margin: 0 3px;
     font-size: 1.4rem;
-    opacity: 0.65;
+    opacity: 1;
     text-transform: uppercase;
-    background-image: linear-gradient(-180deg, #777353 0%, #777353 100%);
-    box-shadow: 0 1rem 1.25rem 0 #514f41, 0 -0.25rem 1.5rem #777353 inset,
-      0 0.75rem 0.5rem #514f41c4 inset, 0 0.25rem 0.5rem 0 #514f41 inset;
+    color: $black;
+    background-image: linear-gradient(-180deg, #b2b8b7 0%, #f3efef 100%);
+    box-shadow: 0 1rem 1.25rem 0 #353433, 0 -0.25rem 1.5rem #434341 inset,
+      0 0.75rem 0.5rem #b3b3ac inset, 0 0.25rem 0.5rem 0 #c9c9c4 inset;
 
     &:hover {
-      opacity: 1;
+      transform: translateY(-4px);
     }
   }
   .router-link-active {
     &.navbar-link {
-      opacity: 1;
+      color: $white;
+      background-image: linear-gradient(-180deg, #777353 0%, #777353 100%);
+      box-shadow: 0 1rem 1.25rem 0 #514f41, 0 -0.25rem 1.5rem #777353 inset,
+        0 0.75rem 0.5rem #514f41 inset, 0 0.25rem 0.5rem 0 #514f41 inset;
     }
   }
 

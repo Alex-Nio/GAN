@@ -3,23 +3,7 @@
     <div class="container">
       <div class="actions-panel__wrapper">
         <h1 class="notes-title">Отслеживаемые наборы:</h1>
-        <!-- <button @click="showActions" class="actions-panel__toggle">Toggler</button> -->
         <button class="go-back-btn" @click="handleClick">Вернуться</button>
-        <!-- <transition
-          mode="out-in"
-          enter-active-class="animate__animated animate__fadeInLeft"
-          leave-active-class="animate__animated animate__fadeOutLeft"
-        >
-          <div v-if="showBtns && !mobileView" class="notes__btns">
-            <filter-btn
-              v-for="button in buttons"
-              :key="button.value"
-              :value="button.value"
-              :class="{ active: activeFilter === button.filter }"
-              @click="button.handler"
-            ></filter-btn>
-          </div>
-        </transition> -->
       </div>
     </div>
   </div>
@@ -29,19 +13,19 @@
   // imports
   import { ref, onMounted, onUnmounted } from "vue";
   import { useRouter } from "vue-router";
-  import filterBtn from "@/components/UI/filterBtn.vue";
+  // import filterBtn from "@/components/UI/filterBtn.vue";
 
   // Emits
   const emit = defineEmits(["filterToggle"]);
   const router = useRouter();
 
   // Props
-  const props = defineProps({
-    activeFilter: {
-      type: String,
-      required: true,
-    },
-  });
+  // const props = defineProps({
+  //   activeFilter: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // });
   // Filter btns
   const buttons = [
     {
@@ -76,7 +60,11 @@
   };
 
   const handleClick = () => {
-    router.push("/kits");
+    if (router.currentRoute.value.path == "/kits") {
+      router.push("/");
+    } else {
+      router.push("/kits");
+    }
   };
 
   const handleResize = () => {
