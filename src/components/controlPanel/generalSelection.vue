@@ -99,7 +99,7 @@
   // Artifacts selection
   .general-selection {
     width: 100%;
-    min-width: 157px;
+    min-width: 295px;
     transition: all 0.3s linear;
     &__selector {
       cursor: pointer;
@@ -112,8 +112,8 @@
       display: flex;
       font-family: $ff_R;
       font-style: normal;
-      font-weight: 400;
-      font-size: 1.8rem;
+      font-weight: 500;
+      font-size: 2.2rem;
       line-height: 100%;
       color: #303030;
       background-color: #fff;
@@ -122,27 +122,19 @@
 
       &.active {
         color: $white;
-        background: rgba(60, 46, 155, 0.64);
+        background: #004536;
         transition: all 0.3s linear;
       }
 
       &.disabled {
         cursor: not-allowed;
-        background-color: rgba(60, 46, 155, 0.64);
+        background-color: #004536;
         color: $white;
-      }
-
-      & img {
-        width: 12px;
-        height: 16px;
-        margin-left: 1px;
-        margin-top: 1px;
-        transition: all 0.3s linear;
       }
 
       &:hover:not(.disabled) {
         color: $white;
-        background: rgba(60, 46, 155, 0.64);
+        background: #004536;
         transition: all 0.3s linear;
       }
 
@@ -155,7 +147,6 @@
     &__title {
       position: relative;
       margin-left: 11px;
-      margin-top: 3px;
     }
 
     &__list {

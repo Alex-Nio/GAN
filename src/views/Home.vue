@@ -4,66 +4,57 @@
       <div class="container">
         <div class="control-panel">
           <div class="control-panel__inner">
-            <h1 class="control-panel__title">{{ mainTitle }}</h1>
-            <div class="control-panel__row">
+            <div class="control-panel__content-top">
               <div class="kit-selection">
-                <div class="kit-selection__row">
-                  <selection-list
-                    :mainClass="'selection-list'"
-                    :items="data.kits"
-                    :activeClass="'selection-item current'"
-                    :passiveClass="'selection-item'"
-                    @handleKitSelection="handleKitSelection"
-                  ></selection-list>
-                </div>
+                <h1 class="kit-selection__title">{{ mainTitle }}</h1>
+                <selection-list
+                  :mainClass="'selection-list'"
+                  :items="data.kits"
+                  :activeClass="'selection-item current'"
+                  :passiveClass="'selection-item'"
+                  @handleKitSelection="handleKitSelection"
+                ></selection-list>
+              </div>
+              <div class="type-selection">
+                <h3 class="type-selection__title">
+                  {{ data.artifactTypes[currentTypeIndex]["type"] }}
+                </h3>
+                <selection-list
+                  :mainClass="'types-list'"
+                  :items="currentKit.images"
+                  :activeClass="'selection-item current'"
+                  :passiveClass="'selection-item'"
+                  @handleTypeSelection="handleTypeSelection"
+                ></selection-list>
               </div>
             </div>
-
-            <div class="control-panel__row control-panel__row--around">
-              <h3 class="control-panel__title">
-                {{ data.artifactTypes[currentTypeIndex]["type"] }}
-              </h3>
-              <h3 class="control-panel__title">
-                {{ selectTitle }}
-              </h3>
-            </div>
-
-            <div class="control-panel__row">
+            <div class="control-panel__content-bottom">
               <div class="control-panel__column">
-                <div class="artifact-types">
-                  <div class="artifact-types__inner">
-                    <selection-list
-                      :mainClass="'types-list'"
-                      :items="currentKit.images"
-                      :activeClass="'selection-item current'"
-                      :passiveClass="'selection-item'"
-                      @handleTypeSelection="handleTypeSelection"
-                    ></selection-list>
+                <div class="general-selection">
+                  <h3 class="general-selection__title">
+                    {{ selectTitle }}
+                  </h3>
+                  <div class="general-selection__wrapper">
+                    <general-selection
+                      v-model="currentArtifact"
+                      :mainTitle="mainTitle"
+                      @generalSelectionDone="generalSelectionDone"
+                    ></general-selection>
                   </div>
                 </div>
               </div>
               <div class="control-panel__column">
-                <general-selection
-                  v-model="currentArtifact"
-                  :mainTitle="mainTitle"
-                  @generalSelectionDone="generalSelectionDone"
-                ></general-selection>
-              </div>
-            </div>
-            <div class="control-panel__row">
-              <h3 class="control-panel__title">Выберите доп статы</h3>
-            </div>
-            <div class="control-panel__row">
-              <div class="control-panel__column">
-                <extra-selection
-                  v-model="selectedMainStat"
-                  :currentArtifact="currentArtifact"
-                  :kitSwitched="kitSwitched"
-                  @currentDopStatsSelected="currentDopStatsSelected"
-                ></extra-selection>
-              </div>
-              <div class="control-panel__action">
-                <create-btn @createNote="createNote"></create-btn>
+                <div class="types-selection">
+                  <h3 class="types-selection__title">Выберите доп статы</h3>
+                  <div class="types-selection__wrapper">
+                    <extra-selection
+                      v-model="selectedMainStat"
+                      :currentArtifact="currentArtifact"
+                      :kitSwitched="kitSwitched"
+                      @currentDopStatsSelected="currentDopStatsSelected"
+                    ></extra-selection>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -248,106 +239,71 @@
     position: relative;
   }
   .control-panel {
-    background: rgb(179, 179, 191);
-    background: linear-gradient(
-      90deg,
-      rgba(20, 20, 56, 0.25) 0%,
-      rgba(0, 0, 0, 0.15) 50%,
-      rgba(20, 20, 56, 0.25) 100%
-    );
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    &__inner {
-      padding: 20px 40px 40px 40px;
-    }
-
-    &__row {
-      @include fdrjs_aic;
-      width: 100%;
-
-      &--around {
-        @include fdrjsa_aic;
+    &__column {
+      &:last-child {
+        margin-left: 93px;
       }
     }
 
-    &__column {
-      @include fdcjc_aic;
-      width: 100%;
-      padding: 0 10px;
+    &__content-top {
+      @include fdrjsb_aic;
+      margin-top: 70px;
+      margin-bottom: 27px;
     }
 
-    &__title {
-      width: 100%;
-      font-size: 2.8rem;
-      margin: 20px 0;
-      color: $white;
-      padding: 0 40px;
-      text-align: center;
-    }
-
-    &__action {
-      @include fdrjc_aic;
-      width: 100%;
-      max-width: 110px;
+    &__content-bottom {
+      @include fdrjs_ais;
+      margin-bottom: 35px;
     }
   }
 
   .kit-selection {
-    width: 100%;
+    @include fdc;
+    &__title {
+      font-family: $ff_Mont;
+      font-weight: $sb;
+      font-size: 3.6rem;
+      margin-bottom: 25px;
+    }
   }
-
-  .artifact-types {
-    &__row {
-      @include fdrjs_aic;
-      margin: 20px 0;
-    }
-
-    &__inner {
-      @include fdcjc_ais;
-      padding: 0 40px;
-    }
+  .type-selection {
+    @include fdcjc_aic;
 
     &__title {
-      font-size: 3.8rem;
-      margin: 40px 0 20px 0;
-    }
-
-    &__name {
-      text-align: center;
+      font-family: $ff_Mont;
+      font-weight: $sb;
+      font-size: 2.4rem;
       margin-bottom: 20px;
     }
   }
-
-  @media screen and (max-width: 991px) {
-    .artifact-types__inner {
-      padding: 0;
+  .general-selection {
+    &__title {
+      font-family: $ff_Mont;
+      font-size: 2.4rem;
+      margin-bottom: 27px;
     }
 
-    .control-panel__row:nth-child(4),
-    .control-panel__row:nth-child(6) {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .control-panel__column:nth-child(1) {
-      margin-bottom: 30px;
-    }
-
-    .control-panel__title:nth-child(2) {
-      display: none;
-    }
-
-    .control-panel__action {
-      margin-top: 15px;
+    &__wrapper {
+      border-radius: 12px;
+      padding: 21px 17px 56px 19px;
+      background: rgba(138, 255, 230, 0.2);
     }
   }
 
-  @media screen and (max-width: 481px) {
-    .control-panel__inner {
-      padding: 10px;
+  .types-selection {
+    max-width: 625px;
+
+    &__title {
+      font-family: $ff_Mont;
+      font-weight: $sb;
+      font-size: 2.4rem;
+      margin-bottom: 27px;
+    }
+
+    &__wrapper {
+      border-radius: 12px;
+      padding: 21px 17px 28px 19px;
+      background: rgba(138, 255, 230, 0.2);
     }
   }
 </style>

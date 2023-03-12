@@ -79,21 +79,26 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  $imageWidth: 106px;
+  $imageWidth: 100%;
 
   .selection-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax($imageWidth, $imageWidth));
-    padding: 0 40px;
+    grid-template-columns: repeat(6, minmax(85px, 87px));
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+    grid-gap: 5px 20px;
+    background: rgba(138, 255, 230, 0.2);
+    border-radius: 12px;
+    padding: 15px;
   }
 
   .selection-item {
     width: $imageWidth;
-    height: $imageWidth;
+    max-width: 87px;
 
     &__image {
       width: $imageWidth;
-      height: $imageWidth;
       transform: scale(1);
       transition: all 0.3s linear;
     }
@@ -118,7 +123,7 @@
       }
 
       & .selection-item__image {
-        transform: scale(1.1);
+        transform: scale(1.09);
         transition: all 0.2s linear;
       }
     }
@@ -127,7 +132,7 @@
       cursor: pointer;
 
       & .selection-item__image {
-        transform: scale(1.1);
+        transform: scale(1.09);
         transition: all 0.2s linear;
       }
     }
@@ -136,7 +141,14 @@
   //Types
 
   .types-list {
-    @include fdrjs_aic;
+    @include fdcjc_aic;
+    padding: 18px 19px 18px 22px;
+    background-color: #8affe62e;
+    border-radius: 12px;
+    & .selection-item {
+      //
+    }
+
     &__item {
       &.current {
         position: relative;

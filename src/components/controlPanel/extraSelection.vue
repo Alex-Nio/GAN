@@ -9,13 +9,16 @@
         }"
       >
         <input
+          class="extra-checkboxes-list__input"
           type="checkbox"
           :id="dopStat.value"
           :value="dopStat.value"
           :disabled="blocked && !dopStat.checked"
           @change="checkboxToggle(dopStat)"
           v-model="dopStat.checked"
-        /><label :for="dopStat.value">{{ dopStat.value }}</label>
+        /><label :for="dopStat.value" class="extra-checkboxes-list__label">{{
+          dopStat.value
+        }}</label>
       </li>
     </ul>
   </div>
@@ -84,8 +87,8 @@
   $checkbox-background: rgba(255, 255, 255, 0.9);
   $checkbox-border: 2px solid rgba(139, 139, 139, 0.3);
 
-  $checkbox-checked-background: rgba(60, 46, 155, 0.64);
-  $checkbox-checked-border: 2px solid rgba(60, 46, 155, 0.64);
+  $checkbox-checked-background: #004536;
+  $checkbox-checked-border: 2px solid #004536;
 
   #extra-container {
     display: flex;
@@ -93,90 +96,96 @@
     width: 100%;
   }
   .extra-checkboxes-list {
-    list-style: none;
-  }
-  .extra-checkboxes-list li {
-    display: inline-flex;
-    margin: 0 5px;
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  .extra-checkboxes-list li label {
-    display: inline-block;
-    background-color: $checkbox-background;
-    border: $checkbox-border;
-    color: $primary;
-    border-radius: 25px;
-    white-space: nowrap;
-    margin: 3px 0px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all 0.2s;
-  }
-
-  .extra-checkboxes-list li label {
     display: flex;
-    align-items: center;
-    padding: 8px 22px 8px 12px;
-    cursor: pointer;
-  }
+    flex-wrap: wrap;
+    list-style: none;
+    &__item {
+      display: inline-flex;
+      margin: 0 5px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    &__input {
+      position: absolute;
+      opacity: 0;
+      & + .extra-checkboxes-list__label {
+        transition: all 0.2s;
+      }
 
-  .extra-checkboxes-list li label::before {
-    display: inline-block;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    padding: 2px 6px 2px 2px;
-    content: "";
-    width: 24px;
-    height: 24px;
-    background: url("@/assets/img/icons/checkbox-arrow.svg") no-repeat center / 24px 24px;
-    transition: transform 0.3s ease-in-out;
-  }
+      &:hover {
+        & + .extra-checkboxes-list__label {
+          border: 2px solid rgba(59, 199, 201, 0.77);
+          background-color: rgba(36, 226, 229, 0.77);
+          color: #fff;
+          transition: all 0.2s;
+        }
+      }
 
-  .extra-checkboxes-list li input[type="checkbox"] + label {
-    transition: all 0.2s;
-  }
+      &:checked {
+        & + .extra-checkboxes-list__label {
+          border: $checkbox-checked-border;
+          background-color: $checkbox-checked-background;
+          color: #fff;
+          transition: all 0.2s;
 
-  .extra-checkboxes-list li input[type="checkbox"]:hover + label {
-    border: 2px solid rgba(59, 199, 201, 0.77);
-    background-color: rgba(36, 226, 229, 0.77);
-    color: #fff;
-    transition: all 0.2s;
-  }
+          &::before {
+            content: "";
+            width: 14px;
+            height: 10px;
+            background: url("@/assets/img/icons/close-icon.png") no-repeat center / 14px
+              14px;
+            transform: rotate(-360deg);
+            transition: transform 0.3s ease-in-out;
+          }
+        }
+      }
 
-  .extra-checkboxes-list li input[type="checkbox"]:checked + label::before {
-    content: "";
-    width: 24px;
-    height: 24px;
-    background: url("@/assets/img/icons/close-icon.png") no-repeat center / 24px 24px;
-    transform: rotate(-360deg);
-    transition: transform 0.3s ease-in-out;
-  }
+      &:disabled {
+        & + .extra-checkboxes-list__label {
+          background-color: rgba(113, 112, 112, 0.464);
+        }
+      }
+    }
 
-  .extra-checkboxes-list li input[type="checkbox"]:checked + label {
-    border: $checkbox-checked-border;
-    background-color: $checkbox-checked-background;
-    color: #fff;
-    transition: all 0.2s;
-  }
+    &__label {
+      background-color: $checkbox-background;
+      border: $checkbox-border;
+      color: $primary;
+      border-radius: 25px;
+      white-space: nowrap;
+      margin: 3px 0px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.2s;
+      //
+      font-family: $ff_R;
+      font-weight: $m;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      padding: 6px 12px 6px 2px;
+      cursor: pointer;
 
-  .extra-checkboxes-list li input[type="checkbox"] {
-    display: absolute;
-  }
-  .extra-checkboxes-list li input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-  }
-
-  .extra-checkboxes-list li input[type="checkbox"]:disabled + label {
-    background-color: rgba(113, 112, 112, 0.464);
+      &::before {
+        display: inline-block;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        padding: 0px 6px 2px 0px;
+        content: "";
+        width: 14px;
+        height: 14px;
+        background: url("@/assets/img/icons/checkbox-arrow.svg") no-repeat center / 14px
+          14px;
+        transition: transform 0.3s ease-in-out;
+      }
+    }
   }
 </style>
