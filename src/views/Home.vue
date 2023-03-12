@@ -261,9 +261,9 @@
   .kit-selection {
     @include fdc;
     &__title {
-      font-family: $ff_Mont;
       font-weight: $sb;
       font-size: 3.6rem;
+      line-height: 1;
       margin-bottom: 25px;
     }
   }
@@ -271,22 +271,21 @@
     @include fdcjc_aic;
 
     &__title {
-      font-family: $ff_Mont;
       font-weight: $sb;
       font-size: 2.4rem;
+      line-height: 1;
       margin-bottom: 20px;
     }
   }
   .general-selection {
     &__title {
-      font-family: $ff_Mont;
       font-size: 2.4rem;
       margin-bottom: 27px;
     }
 
     &__wrapper {
       border-radius: 12px;
-      padding: 21px 17px 56px 19px;
+      padding: 21px 17px 61px 19px;
       background: rgba(138, 255, 230, 0.2);
     }
   }
@@ -295,7 +294,6 @@
     max-width: 625px;
 
     &__title {
-      font-family: $ff_Mont;
       font-weight: $sb;
       font-size: 2.4rem;
       margin-bottom: 27px;

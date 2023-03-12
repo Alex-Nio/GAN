@@ -1,6 +1,6 @@
 <template>
   <div class="full-wrapper">
-    <header class="on-scroll">
+    <header>
       <div class="navbar">
         <div class="navbar-content">
           <main-logo></main-logo>
@@ -66,18 +66,18 @@
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
 
-  .content-wrapper {
-    margin-top: 54px;
-  }
+  // .content-wrapper {
+  //   margin-top: 54px;
+  // }
 
-  header {
-    &.on-scroll {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-    }
-  }
+  // header {
+  //   &.on-scroll {
+  //     position: fixed;
+  //     width: 100%;
+  //     top: 0;
+  //     z-index: 100;
+  //   }
+  // }
 
   .navbar {
     margin-bottom: 10px;

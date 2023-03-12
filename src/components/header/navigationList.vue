@@ -77,7 +77,8 @@
 
   .navbar-link {
     @include fdrjc_aic;
-    padding: 14px 40px 23px 32px;
+    font-family: $ff_R;
+    padding: 14px 32px 14px 32px;
     border-radius: 5px;
     margin: 0 3px;
     font-size: 1.4rem;
