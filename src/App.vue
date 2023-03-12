@@ -1,6 +1,6 @@
 <template>
   <div class="full-wrapper">
-    <header>
+    <header :class="{ 'header-scroll': isScrolled }">
       <div class="navbar">
         <div class="navbar-content">
           <main-logo></main-logo>
@@ -61,43 +61,87 @@
       document.body.classList.toggle("no-scroll", showMenu.value);
     }
   };
+
+  // Header scroll
+  const isScrolled = ref(false);
+
+  onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
+  });
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    if (scrollPosition > 0) {
+      isScrolled.value = true;
+    } else {
+      isScrolled.value = false;
+    }
+  };
 </script>
 
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
 
-  // .content-wrapper {
-  //   margin-top: 54px;
-  // }
+  .header-scroll {
+    position: fixed;
+    width: 100%;
+    z-index: 45;
+    transition: padding 0.5s ease-out;
 
-  // header {
-  //   &.on-scroll {
-  //     position: fixed;
-  //     width: 100%;
-  //     top: 0;
-  //     z-index: 100;
-  //   }
-  // }
+    & .navbar-content {
+      padding: 10px 0;
+      transition: all 0.5s ease-out;
+    }
+
+    & .navbar-content {
+      &:before,
+      &::after {
+        transition: all 0.4s ease-in;
+      }
+
+      &:before {
+        left: 100%;
+      }
+
+      &:after {
+        right: 100%;
+      }
+    }
+
+    & .logo > img {
+      width: 75px;
+      transition: width 0.5s ease-out;
+    }
+  }
 
   .navbar {
+    position: relative;
+    width: 100%;
     margin-bottom: 10px;
+    background-color: $white;
+    &:before {
+      content: "";
+      position: absolute;
+      opacity: 0.35;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("@/assets/img/menu-bg.jpeg") no-repeat center center / cover;
+    }
   }
 
   .navbar-content {
     position: relative;
     max-width: 1440px;
     margin: 0 auto;
-    height: 54px;
+    padding: 45px 0;
+    transition: padding 0.5s ease-out;
     z-index: 55;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
-    background: rgb(60, 76, 74);
-    background: linear-gradient(
-      180deg,
-      rgba(60, 76, 74, 1) 0%,
-      rgba(52, 65, 62, 0.8) 35%,
-      rgba(45, 54, 52, 1) 100%
-    );
 
     &:before,
     &:after {
@@ -105,7 +149,8 @@
       position: absolute;
       bottom: 5px;
       width: 20vw;
-      border-bottom: 4px solid #777353;
+      border-bottom: 4px solid #664147;
+      transition: all 0.5s linear;
     }
     &:before {
       left: 100px;
@@ -123,22 +168,7 @@
   }
   .navbar-list {
     @include fdrjc_aic;
-    padding: 15px 40px 0 40px;
-    background: rgb(60, 76, 74);
-    background: linear-gradient(
-      180deg,
-      rgb(30, 146, 131) 0%,
-      rgba(79, 167, 147, 0.8) 35%,
-      rgb(53, 100, 89) 100%
-    );
-    box-shadow: 0 0.25rem 0.5rem 0 #514f411c;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
-    height: 54px;
-
-    &__wrapper {
-      margin-bottom: 20px;
-    }
+    height: 28px;
   }
   .registration-items {
     @include fdrjc_aic;

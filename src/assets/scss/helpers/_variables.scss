@@ -2,23 +2,41 @@
 $white: #ffffff;
 $black: #0d0d0d;
 $primary: #303030;
-$secondary: #8F8F8F;
-$other: #F8F8F8;
+$secondary: #8f8f8f;
+$other: #f8f8f8;
 
 // Action colors
+$btn-back: #514f41;
+$valueColor: #000;
+$checkbox-base-color: rgba(59, 199, 201, 0.77);
+$checkbox-background: rgba(255, 255, 255, 0.9);
+$checkbox-border: 2px solid rgba(139, 139, 139, 0.3);
+$checkbox-checked-background: #004536;
+$checkbox-checked-border: 2px solid #004536;
+$checkbox-disabled-background: rgba(113, 112, 112, 0.464);
+$general-selection-active: #004536;
+$types-selected-bg: #8affe62e;
+$types-selected-before: rgba(111, 239, 215, 0.24);
+$types-selected-before-border: rgba(111, 239, 215, 0.3);
 
+// Forms
+$form-focus-color: #30c7cf;
+
+// Popups
+$popup-btn-submit: green;
+$popup-btn-declined: red;
+$popup-btn-active: rgba(43, 189, 246, 0.746);
 
 // Font Size
 $base_fz: 1.6rem;
-$base_ff: 'Roboto Condensed', sans-serif;
+$base_ff: "Roboto", sans-serif;
 $base_hover: 0.5; // opacity
 $base_bg: #403f3f;
-$base_color: #fff;
+$base_color: $white;
 
 //? Fonts
-$ff_R: 'Roboto Condensed', sans-serif;
-$ff_Merri: 'Merriweather', serif;
-$ff_Mont: 'Montserrat', sans-serif;
+$ff_R: "Roboto", sans-serif;
+$ff_C: 'Comfortaa', cursive;
 
 //? Style
 $I: italic;

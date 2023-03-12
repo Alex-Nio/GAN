@@ -87,14 +87,14 @@
 
     &:active {
       color: $white;
-      background-color: rgba(43, 189, 246, 0.746);
+      background-color: $popup-btn-active;
       transition: all 0.1s linear;
     }
   }
   .popup-control-btn--green {
-    background-color: green;
+    background-color: $popup-btn-submit;
   }
   .popup-control-btn--red {
-    background-color: red;
+    background-color: $popup-btn-declined;
   }
 </style>

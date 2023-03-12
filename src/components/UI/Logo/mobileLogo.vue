@@ -20,7 +20,6 @@
       transform: translateX(-50%);
       font-size: 2.4rem;
       font-weight: bold;
-      color: rgb(231, 246, 27);
       z-index: 30;
 
       & > img {

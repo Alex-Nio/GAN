@@ -83,12 +83,6 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  $valueColor: #000;
-  $checkbox-background: rgba(255, 255, 255, 0.9);
-  $checkbox-border: 2px solid rgba(139, 139, 139, 0.3);
-
-  $checkbox-checked-background: #004536;
-  $checkbox-checked-border: 2px solid #004536;
 
   #extra-container {
     display: flex;
@@ -118,8 +112,8 @@
 
       &:hover {
         & + .extra-checkboxes-list__label {
-          border: 2px solid rgba(59, 199, 201, 0.77);
-          background-color: rgba(36, 226, 229, 0.77);
+          border: 2px solid $checkbox-base-color;
+          background-color: $checkbox-base-color;
           color: #fff;
           transition: all 0.2s;
         }
@@ -146,7 +140,7 @@
 
       &:disabled {
         & + .extra-checkboxes-list__label {
-          background-color: rgba(113, 112, 112, 0.464);
+          background-color: $checkbox-disabled-background;
         }
       }
     }
@@ -165,7 +159,6 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       transition: all 0.2s;
-      //
       font-family: $ff_R;
       font-weight: $m;
       font-size: 1.6rem;

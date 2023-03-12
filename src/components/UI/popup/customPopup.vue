@@ -47,7 +47,7 @@
       @include fdcjc_aic;
       position: relative;
       margin: 0 auto;
-      background-color: #fff;
+      background-color: $white;
       width: 600px;
       max-width: 75rem;
       min-height: 20rem;

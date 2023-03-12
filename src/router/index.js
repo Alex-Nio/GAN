@@ -6,7 +6,7 @@ import Kits from "../views/Kits.vue";
 import Notes from "../views/Notes.vue";
 import Registration from "../views/Auth/Registration.vue";
 import Login from "../views/Auth/SignUp.vue";
-import Collections from "../views/Collections.vue";
+import Planning from "../views/Planning.vue";
 
 const routes = [
   {
@@ -35,9 +35,9 @@ const routes = [
     }
   },
   {
-    path: "/collections",
-    name: "collections",
-    component: Collections,
+    path: "/planning",
+    name: "planning",
+    component: Planning,
     meta: {
       requiresAuth: true
     }

@@ -64,7 +64,7 @@
       });
     });
 
-    store.dispatch("setCollections", result);
+    // store.dispatch("setCollections", result);
 
     // return computed items
     return result;

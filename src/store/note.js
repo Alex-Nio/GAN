@@ -11,9 +11,9 @@ export default {
     setNotes(state, notes) {
       state.notes = notes;
     },
-    setCollections(state, items) {
-      state.collections = items;
-    },
+    // setCollections(state, items) {
+    //   state.collections = items;
+    // },
     setUser(state, user) {
       state.user = user;
     },
@@ -29,17 +29,17 @@ export default {
     }
   },
   actions: {
-    async setCollections({ commit }, kitsCollection) {
-      const user = getAuth().currentUser;
-      if (!user) {
-        return;
-      }
-      const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
-      const newCollectionRef = push(collectionsRef);
-      await set(newCollectionRef, kitsCollection);
+    // async setCollections({ commit }, kitsCollection) {
+    //   const user = getAuth().currentUser;
+    //   if (!user) {
+    //     return;
+    //   }
+    //   const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
+    //   const newCollectionRef = push(collectionsRef);
+    //   await set(newCollectionRef, kitsCollection);
 
-      commit("setCollections", kitsCollection);
-    },
+    //   commit("setCollections", kitsCollection);
+    // },
     async addNote({ commit, state }, note) {
       const user = getAuth().currentUser;
       if (!user) {
@@ -78,14 +78,14 @@ export default {
         commit("setNotes", notes);
       });
 
-      const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
-      onChildAdded(collectionsRef, childSnapshot => {
-        const newCollection = {
-          id: childSnapshot.key,
-          ...childSnapshot.val()
-        };
-        commit("setCollections", newCollection);
-      });
+      // const collectionsRef = ref(getDatabase(), `users/${user.uid}/collections`);
+      // onChildAdded(collectionsRef, childSnapshot => {
+      //   const newCollection = {
+      //     id: childSnapshot.key,
+      //     ...childSnapshot.val()
+      //   };
+      //   commit("setCollections", newCollection);
+      // });
     },
     async deleteNote({ commit, state }, noteId) {
       const user = getAuth().currentUser;

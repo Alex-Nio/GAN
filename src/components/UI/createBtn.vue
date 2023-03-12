@@ -65,7 +65,7 @@
   }
   #button.onclic {
     width: 40px;
-    border-color: #c3c3c3;
+    border-color: $secondary;
     border-radius: 42px;
     border-width: 3px;
     font-size: 0;

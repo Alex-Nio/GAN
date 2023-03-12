@@ -143,7 +143,7 @@
   .types-list {
     @include fdcjc_aic;
     padding: 18px 19px 18px 22px;
-    background-color: #8affe62e;
+    background-color: $types-selected-bg;
     border-radius: 12px;
     & .selection-item {
       //
@@ -160,12 +160,12 @@
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(111, 239, 215, 0.24);
+          background: $types-selected-before;
           border-radius: 16px;
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(4.9px);
           -webkit-backdrop-filter: blur(4.9px);
-          border: 1px solid rgba(111, 239, 215, 0.3);
+          border: 1px solid $types-selected-before-border;
           animation: fadeIn 0.3s linear;
         }
 

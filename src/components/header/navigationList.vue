@@ -5,7 +5,7 @@
         v-if="
           (isLoggedIn && link.title == 'Главная') ||
           (isLoggedIn && link.title == 'Наборы') ||
-          (isLoggedIn && link.title == 'Мои коллекции')
+          (isLoggedIn && link.title == 'Планирование')
         "
         class="navbar-link"
         :to="`${link.url}`"
@@ -34,17 +34,18 @@
 </template>
 
 <script setup>
+  // imports
   import { onMounted, ref } from "vue";
   import { useRouter } from "vue-router";
   import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-  const router = useRouter(); // router
+  const router = useRouter();
   const isLoggedIn = ref(false);
 
   const menuLinks = [
     { title: "Главная", url: "/" },
     { title: "Наборы", url: "/kits" },
-    { title: "Мои коллекции", url: "/collections" },
+    { title: "Планирование", url: "/planning" },
   ];
 
   const registrationItems = [
@@ -77,28 +78,49 @@
 
   .navbar-link {
     @include fdrjc_aic;
-    font-family: $ff_R;
-    padding: 14px 32px 14px 32px;
-    border-radius: 5px;
     margin: 0 3px;
-    font-size: 1.4rem;
     opacity: 1;
-    text-transform: uppercase;
+    font-family: $ff_C;
+    font-size: 1.8rem;
+    font-weight: $sb;
     color: $black;
-    background-image: linear-gradient(-180deg, #b2b8b7 0%, #f3efef 100%);
-    box-shadow: 0 1rem 1.25rem 0 #353433, 0 -0.25rem 1.5rem #434341 inset,
-      0 0.75rem 0.5rem #b3b3ac inset, 0 0.25rem 0.5rem 0 #c9c9c4 inset;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    &:active {
+      color: #e5f9e0;
+      background-color: #40c9a2;
+      transition: all 0.3s linear;
+    }
+  }
+
+  .navbar-item {
+    border-radius: 5px;
+    transition: all 0.3s linear;
 
     &:hover {
       transform: translateY(-4px);
+      background-color: $black;
+      box-shadow: 0px 4px 7px -3px rgba(62, 67, 71, 0.11);
+      transition: all 0.3s linear;
+      & .navbar-link {
+        color: $white;
+        transition: all 0.3s linear;
+      }
+    }
+
+    & .router-link-active {
+      &.navbar-link {
+        color: #e5f9e0;
+        background-color: #40c9a2;
+        box-shadow: 0px 4px 7px -2px rgba(62, 67, 71, 0.2);
+      }
     }
   }
-  .router-link-active {
-    &.navbar-link {
-      color: $white;
-      background-image: linear-gradient(-180deg, #777353 0%, #777353 100%);
-      box-shadow: 0 1rem 1.25rem 0 #514f41, 0 -0.25rem 1.5rem #777353 inset,
-        0 0.75rem 0.5rem #514f41 inset, 0 0.25rem 0.5rem 0 #514f41 inset;
+
+  .registration-items {
+    &__item {
+      color: $black;
     }
   }
 

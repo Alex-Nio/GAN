@@ -115,26 +115,26 @@
       font-weight: 500;
       font-size: 2.2rem;
       line-height: 100%;
-      color: #303030;
-      background-color: #fff;
+      color: $primary;
+      background-color: $white;
       padding: 10px 0;
       transition: all 0.3s linear;
 
       &.active {
         color: $white;
-        background: #004536;
+        background: $general-selection-active;
         transition: all 0.3s linear;
       }
 
       &.disabled {
         cursor: not-allowed;
-        background-color: #004536;
+        background-color: $general-selection-active;
         color: $white;
       }
 
       &:hover:not(.disabled) {
         color: $white;
-        background: #004536;
+        background: $general-selection-active;
         transition: all 0.3s linear;
       }
 
@@ -160,7 +160,7 @@
       line-height: 100%;
       max-height: 180px;
       overflow-y: scroll;
-      color: #303030;
+      color: $primary;
       position: absolute;
       z-index: 35;
       background: #fff;
@@ -175,7 +175,7 @@
 
     &__list-item {
       padding: 15px 10px;
-      color: #303030;
+      color: $primary;
 
       &:first-child {
         padding-top: 0;

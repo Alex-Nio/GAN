@@ -10,13 +10,14 @@
   .logo {
     display: inline-block;
     position: absolute;
-    top: 43%;
-    left: 120px;
+    top: 50%;
+    left: 200px;
     transform: translateY(-50%);
     z-index: 30;
 
     & > img {
-      width: 140px;
+      width: 125px;
+      transition: width 0.5s ease-out;
     }
   }
 

@@ -196,8 +196,8 @@
     outline: none;
 
     &:focus {
-      border-color: #30c7cf;
-      box-shadow: 0 0 0 2px #30c7cf;
+      border-color: $form-focus-color;
+      box-shadow: 0 0 0 2px $form-focus-color;
       outline: none;
     }
   }

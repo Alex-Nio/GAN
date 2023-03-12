@@ -139,7 +139,7 @@
     }
 
     &:hover {
-      background-color: #514f41;
+      background-color: $btn-back;
       transition: all 0.3s linear;
     }
 
