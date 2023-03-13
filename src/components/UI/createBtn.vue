@@ -7,13 +7,11 @@
 <script setup>
   import { onMounted } from "vue";
 
-  const emit = defineEmits(["createNote"]);
   const handleClick = function () {
     const btn = document.getElementById("button");
     btn.classList.add("onclic");
     setTimeout(function () {
       btn.classList.remove("onclic");
-      emit("createNote");
       btn.classList.add("validate");
       setTimeout(function () {
         btn.classList.remove("validate");
@@ -37,8 +35,9 @@
   .btn-container {
     @include fdcjc_aic;
     position: absolute;
-    right: 0px;
-    bottom: 2px;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   #button {
     font-family: $ff_R;

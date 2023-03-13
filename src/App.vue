@@ -1,6 +1,5 @@
 <template>
   <div class="full-wrapper">
-    
     <header :class="{ 'header-scroll': isScrolled }">
       <div class="navbar">
         <div class="navbar-content">
@@ -88,6 +87,7 @@
   @import "@/assets/scss/imports.scss";
 
   .main-content {
+    position: relative;
     margin-top: 240px;
   }
 

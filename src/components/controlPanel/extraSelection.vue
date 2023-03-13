@@ -20,14 +20,12 @@
           dopStat.value
         }}</label>
       </li>
-      <create-btn @createNote="$emit('createNote')"></create-btn>
     </ul>
   </div>
 </template>
 <script setup>
   import data from "@/data/data";
   import { ref, watch, onMounted } from "vue";
-  import createBtn from "@/components/UI/createBtn.vue";
 
   const props = defineProps({
     modelValue: String,

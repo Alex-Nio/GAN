@@ -41,6 +41,7 @@
     <div class="card-description__bottom">
       <div class="schedule">
         <p>В какие дни по расписанию</p>
+        <create-btn @click="createNote"></create-btn>
       </div>
     </div>
   </div>
@@ -49,6 +50,7 @@
 <script setup>
   // imports
   import { watch } from "vue";
+  import createBtn from "@/components/UI/createBtn.vue";
 
   // props
   const props = defineProps({
@@ -62,6 +64,13 @@
       type: Object,
     },
   });
+
+  // emits
+  const emit = defineEmits(["createNote"]);
+
+  const createNote = () => {
+    emit("createNote");
+  };
 
   watch(
     () => [props.currentKit],
@@ -95,6 +104,7 @@
     }
 
     &__bottom {
+      position: relative;
       @include fdcjc_ais;
       padding: 15px;
       margin-bottom: 5px;

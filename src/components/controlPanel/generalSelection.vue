@@ -112,6 +112,7 @@
     }
 
     &__label {
+      position: relative;
       display: flex;
       font-family: $ff_R;
       font-style: normal;
@@ -123,10 +124,27 @@
       padding: 10px 0;
       transition: all 0.3s linear;
 
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background: url("@/assets/img/icons/arrow-icon.svg") no-repeat center;
+        transition: transform 0.3s linear;
+      }
+
       &.active {
         color: $white;
         background: $general-selection-active;
         transition: all 0.3s linear;
+
+        &:after {
+          transform: translateY(-50%) scale(1, -1);
+          transition: transform 0.3s linear;
+        }
 
         & .general-selection__title {
           color: $white;
@@ -135,8 +153,12 @@
 
       &.disabled {
         cursor: not-allowed;
-        background-color: $general-selection-active;
+        background-color: $general-selection-disabled;
         color: $white;
+
+        &:after {
+          display: none;
+        }
       }
 
       &:hover:not(.disabled) {

@@ -1,98 +1,103 @@
 <template>
   <section>
     <div class="container">
-      <div class="main-title">
-        <h1>GAN</h1>
-        <p>Genshin Artifact Notes</p>
-      </div>
-      <div class="main-text">
-        <p>
-          Приложение GAN - это справочник артефактов для игры Genshin Impact. В приложении
-          вы можете найти информацию о различных наборах артефактов, их свойствах, бонусах
-          и местоположении.
-        </p>
-        <p>
-          Используйте меню выбора наборов артефактов и их изображений, чтобы найти нужный
-          набор, а затем выберите свойства артефактов, чтобы получить информацию о его
-          бонусах.
-        </p>
-        <p>
-          GAN позволяет игрокам легко найти и собрать лучшие наборы артефактов для своих
-          персонажей в игре Genshin Impact.
-        </p>
-      </div>
-      <div class="control-panel">
-        <div class="control-panel__inner">
-          <div class="control-panel__content">
-            <div class="card">
-              <div class="card__wrapper">
-                <div class="card-content">
-                  <div class="card-content__row">
-                    <selection-list
-                      :mainClass="'selection-list'"
-                      :items="data.kits"
-                      :activeClass="'selection-item current'"
-                      :passiveClass="'selection-item'"
-                      @handleKitSelection="handleKitSelection"
-                    ></selection-list>
-                    <selection-list
-                      :mainClass="'types-list'"
-                      :items="currentKit.images"
-                      :activeClass="'selection-item current'"
-                      :passiveClass="'selection-item'"
-                      @handleTypeSelection="handleTypeSelection"
-                    ></selection-list>
-                  </div>
-                  <div class="card-content__column">
-                    <div class="control-panel__options">
-                      <div class="option-item">
-                        <general-selection
-                          v-model="currentArtifactType"
-                          :mainTitle="mainTitle"
-                          @generalSelectionDone="generalSelectionDone"
-                        ></general-selection>
-                      </div>
-                      <div class="option-item">
-                        <extra-selection
-                          v-model="selectedMainStat"
-                          :currentArtifactType="currentArtifactType"
-                          :kitSwitched="kitSwitched"
-                          @currentDopStatsSelected="currentDopStatsSelected"
-                          @createNote="createNote"
-                        ></extra-selection>
+      <scroll-parallax
+        :up="parallaxTop.up"
+        :down="parallaxTop.down"
+        :speed="parallaxTop.speed"
+      >
+        <main-title-text></main-title-text>
+      </scroll-parallax>
+      <scroll-parallax
+        :up="parallaxBottom.up"
+        :down="parallaxBottom.down"
+        :speed="parallaxBottom.speed"
+      >
+        <div class="control-panel">
+          <div class="control-panel__inner">
+            <div class="control-panel__text">
+              <p>Выберите набор, его тип и необходимые Вам свойства</p>
+              <p>Далее добавьте артефакт в свою коллекцию</p>
+            </div>
+            <div class="control-panel__content">
+              <div class="card">
+                <div class="card__wrapper">
+                  <div class="card-content">
+                    <div class="card-content__row">
+                      <selection-list
+                        :mainClass="'selection-list'"
+                        :items="data.kits"
+                        :activeClass="'selection-item current'"
+                        :passiveClass="'selection-item'"
+                        @handleKitSelection="handleKitSelection"
+                      ></selection-list>
+                      <selection-list
+                        :mainClass="'types-list'"
+                        :items="currentKit.images"
+                        :activeClass="'selection-item current'"
+                        :passiveClass="'selection-item'"
+                        @handleTypeSelection="handleTypeSelection"
+                      ></selection-list>
+                    </div>
+                    <div class="card-content__column">
+                      <div class="control-panel__options">
+                        <div class="option-item">
+                          <general-selection
+                            v-model="currentArtifactType"
+                            :mainTitle="mainTitle"
+                            @generalSelectionDone="generalSelectionDone"
+                          ></general-selection>
+                        </div>
+                        <div class="option-item">
+                          <extra-selection
+                            v-model="selectedMainStat"
+                            :currentArtifactType="currentArtifactType"
+                            :kitSwitched="kitSwitched"
+                            @currentDopStatsSelected="currentDopStatsSelected"
+                            @createNote="createNote"
+                          ></extra-selection>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card__wrapper">
-                <div class="card__content">
-                  <card-description
-                    :currentKitTitle="mainTitle"
-                    :currentKitType="data.artifactTypes[currentTypeIndex]['type']"
-                    :currentKit="currentKit"
-                  ></card-description>
+              <div class="card">
+                <div class="card__wrapper">
+                  <div class="card__content">
+                    <card-description
+                      :currentKitTitle="mainTitle"
+                      :currentKitType="data.artifactTypes[currentTypeIndex]['type']"
+                      :currentKit="currentKit"
+                      @createNote="createNote"
+                    ></card-description>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </scroll-parallax>
     </div>
   </section>
-  <custom-popup v-model:show="popupVisible">
-    <!-- Popup Error content -->
-    <popup-error v-if="popupContentError" :error="error"></popup-error>
+  <transition
+    mode="out-in"
+    enter-active-class="animate__animated animate__fadeIn"
+    leave-active-class="animate__animated animate__fadeOut"
+    :duration="200"
+  >
+    <custom-popup v-model:show="popupVisible">
+      <!-- Popup Error content -->
+      <popup-error v-if="popupContentError" :error="error"></popup-error>
 
-    <!-- Popup Default content -->
-    <popup-default
-      v-else
-      @handleCompleteAction="handleCompleteAction"
-      @handlePageChange="handlePageChange"
-    ></popup-default>
-  </custom-popup>
+      <!-- Popup Default content -->
+      <popup-default
+        v-else
+        @handleCompleteAction="handleCompleteAction"
+        @handlePageChange="handlePageChange"
+      ></popup-default>
+    </custom-popup>
+  </transition>
 </template>
 
 <script setup>
@@ -101,6 +106,7 @@
   import { useStore } from "vuex";
   import { useRouter } from "vue-router";
   import data from "@/data/data";
+  import mainTitleText from "@/components/UI/mainTitleText.vue";
   import selectionList from "@/components/UI/selectionList.vue";
   import cardDescription from "@/components/controlPanel/cardDescription.vue";
   import generalSelection from "@/components/controlPanel/generalSelection.vue";
@@ -117,6 +123,19 @@
   ]); // emits
   const store = useStore(); // store
   const router = useRouter(); // router
+
+  // Parallax settings
+  const parallaxTop = {
+    speed: 0.35,
+    down: true,
+    up: false,
+  };
+
+  const parallaxBottom = {
+    speed: 0.15,
+    down: true,
+    up: false,
+  };
 
   //? defaults
   const mainTitle = ref("Цветок потерянного рая"); // set default title
@@ -260,51 +279,18 @@
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
 
-  .main-title {
-    width: 100%;
-    text-align: center;
-    margin: 30px 0 65px 0;
-    & h1 {
-      font-family: $ff_R;
-      font-size: 24rem;
-    }
-
-    p {
-      position: relative;
-
-      font-family: "Satisfy", cursive;
-      font-size: 11rem;
-
-      &:after {
-        content: "";
-        position: absolute;
-        border-bottom: 2.5rem solid $white;
-        border-radius: 4rem;
-        opacity: 0.2;
-        width: 10vw;
-        left: 50%;
-        bottom: -45px;
-        transform: translateX(-50%);
-      }
-    }
-  }
-
-  .main-text {
-    @include fdrjc_ais;
-    flex: calc(100% / 3);
-
-    & p {
-      font-family: $ff_R;
-      font-size: 1.8rem;
-      padding: 10px;
-      margin: 0 10px;
-    }
-  }
-
   .control-panel {
     @include fdrjc_aic;
     height: 100%;
     min-height: 100vh;
+
+    &__text {
+      font-family: $ff_MainText;
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
     &__inner {
     }
 
@@ -317,6 +303,12 @@
       background: $white;
       border-radius: 5px;
       margin: 0 20px 0 0;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
 
       & .option-item:first-child {
         margin-bottom: 5px;

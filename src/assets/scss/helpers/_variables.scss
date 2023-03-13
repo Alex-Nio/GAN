@@ -8,14 +8,20 @@ $other: #f8f8f8;
 // Action colors
 $btn-back: #514f41;
 $valueColor: #000;
+
+//Checkbox colors
 $checkbox-base-color: rgba(59, 199, 201, 0.77);
 $checkbox-background: rgba(255, 255, 255, 0.9);
 $checkbox-border: 2px solid rgba(139, 139, 139, 0.3);
 $checkbox-checked-background: #40c9a2;
 $checkbox-checked-border: 2px solid #40c9a2;
 $checkbox-disabled-background: rgba(113, 112, 112, 0.464);
+
+// Select colors
 $general-selection-active: teal;
 $general-selection-default: #40c9a2;
+$general-selection-disabled: #383a36;
+// Types colors
 $types-selected-bg: #8affe62e;
 $types-selected-before: rgba(111, 239, 215, 0.24);
 $types-selected-before-border: rgba(111, 239, 215, 0.3);
@@ -38,6 +44,8 @@ $base_color: $white;
 //? Fonts
 $ff_R: "Roboto", sans-serif;
 $ff_C: 'Comfortaa', cursive;
+$ff_MainTitle: "Saira Stencil One", cursive;
+$ff_MainText: "Satisfy", cursive;
 
 //? Style
 $I: italic;
