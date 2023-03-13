@@ -6,6 +6,7 @@
 
 <script setup>
   import { onMounted } from "vue";
+
   const emit = defineEmits(["createNote"]);
   const handleClick = function () {
     const btn = document.getElementById("button");
@@ -29,29 +30,32 @@
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
 
-  $btn-bg: #3ff5d7dd;
+  $btn-bg: #40c9a2;
   $btn-active: rgba(43, 189, 246, 0.746);
-  $green: #3ff5d7dd;
+  $green: #40c9a2;
   $gray: rgba(43, 189, 246, 0.746);
   .btn-container {
     @include fdcjc_aic;
-    margin: auto;
+    position: absolute;
+    right: 0px;
+    bottom: 2px;
   }
   #button {
-    font-size: 2.2rem;
+    font-family: $ff_R;
+    font-size: 1.8rem;
     outline: none;
-    height: 40px;
+    height: 30px;
     text-align: center;
     width: 130px;
     border-radius: 12px;
     background: $green;
     border: 2px solid $green;
-    color: $black;
+    color: $white;
     text-shadow: 0;
     cursor: pointer;
     transition: all 0.25s ease;
     &:hover {
-      color: white;
+      opacity: 0.8;
       background: $green;
     }
     &:active {
@@ -64,7 +68,7 @@
     }
   }
   #button.onclic {
-    width: 40px;
+    width: 30px;
     border-color: $secondary;
     border-radius: 42px;
     border-width: 3px;

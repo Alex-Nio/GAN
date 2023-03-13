@@ -79,21 +79,27 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  $imageWidth: 96px;
+  $imageWidth: 71px;
 
   .selection-list {
     display: grid;
-    grid-template-columns: repeat(5, minmax($imageWidth, $imageWidth));
+    grid-template-columns: repeat(auto-fill, minmax($imageWidth, 1fr));
     width: 100%;
     justify-content: start;
     align-items: center;
-    grid-gap: 5px 20px;
-    background: rgba(138, 255, 230, 0.2);
+    grid-gap: 5px 5px;
     border-radius: 12px;
     padding: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1.9px);
+    -webkit-backdrop-filter: blur(1.9px);
+    border: 1px solid rgba(255, 255, 255, 0.59);
   }
 
   .selection-item {
+    display: inline-block;
     width: $imageWidth;
     max-width: $imageWidth;
 
@@ -113,17 +119,17 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(111, 239, 215, 0.24);
-        border-radius: 16px;
+        background: rgba(8, 8, 8, 0.24);
+        border-radius: 5px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(4.9px);
         -webkit-backdrop-filter: blur(4.9px);
-        border: 1px solid rgba(111, 239, 215, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.3);
         animation: fadeIn 0.3s linear;
       }
 
       & .selection-item__image {
-        transform: scale(1.09);
+        transform: scale(1.05);
         transition: all 0.2s linear;
       }
     }
@@ -132,25 +138,31 @@
       cursor: pointer;
 
       & .selection-item__image {
-        transform: scale(1.09);
+        transform: scale(1.05);
         transition: all 0.2s linear;
       }
     }
   }
 
-  //Types
+  //! Types
 
   .types-list {
     display: grid;
-    grid-template-columns: repeat(5, minmax($imageWidth, $imageWidth));
+    grid-template-rows: repeat(5, minmax($imageWidth, $imageWidth));
     justify-content: start;
     align-items: center;
     grid-gap: 5px 20px;
-    border-radius: 12px;
+    border-radius: 5px;
     padding: 15px;
-    background-color: $types-selected-bg;
+    margin: 0 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1.9px);
+    -webkit-backdrop-filter: blur(1.9px);
+    border: 1px solid rgba(255, 255, 255, 0.59);
     & .selection-item {
-      //
+      display: inline-block;
     }
 
     &__item {
@@ -190,6 +202,7 @@
   }
   .selection-item {
     &__image {
+      display: inline-block;
       width: $imageWidth;
       height: $imageWidth;
       transform: scale(1);

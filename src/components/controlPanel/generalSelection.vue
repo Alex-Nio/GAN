@@ -99,13 +99,16 @@
   // Artifacts selection
   .general-selection {
     width: 100%;
-    min-width: 295px;
     transition: all 0.3s linear;
     &__selector {
       cursor: pointer;
       background: transparent;
       position: relative;
       z-index: 1;
+
+      & .general-selection__title {
+        color: $white;
+      }
     }
 
     &__label {
@@ -116,7 +119,7 @@
       font-size: 2.2rem;
       line-height: 100%;
       color: $primary;
-      background-color: $white;
+      background-color: $general-selection-default;
       padding: 10px 0;
       transition: all 0.3s linear;
 
@@ -124,6 +127,10 @@
         color: $white;
         background: $general-selection-active;
         transition: all 0.3s linear;
+
+        & .general-selection__title {
+          color: $white;
+        }
       }
 
       &.disabled {

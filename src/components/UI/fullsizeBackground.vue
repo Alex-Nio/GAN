@@ -77,11 +77,13 @@
   .video-background {
     background: url("@/assets/img/bg.png") no-repeat center / cover;
     position: fixed;
+    min-height: 100vh;
     top: -10px;
     right: -10px;
     bottom: -10px;
     left: -10px;
     z-index: -99;
+    opacity: 0.5;
   }
   .video-foreground,
   .video-background video {
@@ -89,7 +91,9 @@
     top: 0;
     left: 0;
     width: 100%;
+    min-width: 100vw;
     height: 100%;
+    min-height: 100vh;
     pointer-events: none;
   }
   #vidtop-content {

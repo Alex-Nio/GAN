@@ -20,12 +20,14 @@
           dopStat.value
         }}</label>
       </li>
+      <create-btn @createNote="$emit('createNote')"></create-btn>
     </ul>
   </div>
 </template>
 <script setup>
   import data from "@/data/data";
   import { ref, watch, onMounted } from "vue";
+  import createBtn from "@/components/UI/createBtn.vue";
 
   const props = defineProps({
     modelValue: String,
@@ -85,13 +87,15 @@
   @import "@/assets/scss/imports.scss";
 
   #extra-container {
+    position: relative;
     display: flex;
-    justify-content: center;
     width: 100%;
   }
   .extra-checkboxes-list {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
+
     list-style: none;
     &__item {
       display: inline-flex;
@@ -129,7 +133,7 @@
           &::before {
             content: "";
             width: 14px;
-            height: 10px;
+            height: 14px;
             background: url("@/assets/img/icons/close-icon.png") no-repeat center / 14px
               14px;
             transform: rotate(-360deg);

@@ -1,41 +1,79 @@
 <template>
   <section>
     <div class="container">
+      <div class="main-title">
+        <h1>GAN</h1>
+        <p>Genshin Artifact Notes</p>
+      </div>
+      <div class="main-text">
+        <p>
+          Приложение GAN - это справочник артефактов для игры Genshin Impact. В приложении
+          вы можете найти информацию о различных наборах артефактов, их свойствах, бонусах
+          и местоположении.
+        </p>
+        <p>
+          Используйте меню выбора наборов артефактов и их изображений, чтобы найти нужный
+          набор, а затем выберите свойства артефактов, чтобы получить информацию о его
+          бонусах.
+        </p>
+        <p>
+          GAN позволяет игрокам легко найти и собрать лучшие наборы артефактов для своих
+          персонажей в игре Genshin Impact.
+        </p>
+      </div>
       <div class="control-panel">
         <div class="control-panel__inner">
           <div class="control-panel__content">
             <div class="card">
               <div class="card__wrapper">
-                <div class="card__content">
-                  <selection-list
-                    :mainClass="'selection-list'"
-                    :items="data.kits"
-                    :activeClass="'selection-item current'"
-                    :passiveClass="'selection-item'"
-                    @handleKitSelection="handleKitSelection"
-                  ></selection-list>
+                <div class="card-content">
+                  <div class="card-content__row">
+                    <selection-list
+                      :mainClass="'selection-list'"
+                      :items="data.kits"
+                      :activeClass="'selection-item current'"
+                      :passiveClass="'selection-item'"
+                      @handleKitSelection="handleKitSelection"
+                    ></selection-list>
+                    <selection-list
+                      :mainClass="'types-list'"
+                      :items="currentKit.images"
+                      :activeClass="'selection-item current'"
+                      :passiveClass="'selection-item'"
+                      @handleTypeSelection="handleTypeSelection"
+                    ></selection-list>
+                  </div>
+                  <div class="card-content__column">
+                    <div class="control-panel__options">
+                      <div class="option-item">
+                        <general-selection
+                          v-model="currentArtifactType"
+                          :mainTitle="mainTitle"
+                          @generalSelectionDone="generalSelectionDone"
+                        ></general-selection>
+                      </div>
+                      <div class="option-item">
+                        <extra-selection
+                          v-model="selectedMainStat"
+                          :currentArtifactType="currentArtifactType"
+                          :kitSwitched="kitSwitched"
+                          @currentDopStatsSelected="currentDopStatsSelected"
+                          @createNote="createNote"
+                        ></extra-selection>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card">
               <div class="card__wrapper">
                 <div class="card__content">
-                  <card-description :currentKit="currentKit"></card-description>
-                  <selection-list
-                    :mainClass="'types-list'"
-                    :items="currentKit.images"
-                    :activeClass="'selection-item current'"
-                    :passiveClass="'selection-item'"
-                    @handleTypeSelection="handleTypeSelection"
-                  ></selection-list>
-                  {{ selectTitle }}
-                  <general-selection
-                    v-model="currentArtifact"
-                    :mainTitle="mainTitle"
-                    @generalSelectionDone="generalSelectionDone"
-                  ></general-selection>
-
-                  <create-btn @createNote="createNote"></create-btn>
+                  <card-description
+                    :currentKitTitle="mainTitle"
+                    :currentKitType="data.artifactTypes[currentTypeIndex]['type']"
+                    :currentKit="currentKit"
+                  ></card-description>
                 </div>
               </div>
             </div>
@@ -67,7 +105,6 @@
   import cardDescription from "@/components/controlPanel/cardDescription.vue";
   import generalSelection from "@/components/controlPanel/generalSelection.vue";
   import extraSelection from "@/components/controlPanel/extraSelection.vue";
-  import createBtn from "@/components/UI/createBtn.vue";
   import customPopup from "@/components/UI/popup/customPopup.vue";
   import popupError from "@/components/UI/popup/popupError.vue";
   import popupDefault from "@/components/UI/popup/popupDefault.vue";
@@ -86,7 +123,7 @@
   const currentTypeIndex = ref(0); // index of current artefact type
   const selectTitle = "Верхний стат"; // main stat selection title
   const selectedMainStat = ref("HP"); // default main stat
-  let currentArtifact = "Цветок"; // default artifact type
+  let currentArtifactType = "Цветок"; // default artifact type
   const currentKit = ref({
     name: "Цветок потерянного рая",
     images: [
@@ -96,6 +133,11 @@
       { goblet: "/Цветок потерянного рая/goblet.png" },
       { hat: "/Цветок потерянного рая/hat.png" },
     ],
+    location: { name: "Песчаное царство", image: "/Цветок потерянного рая/dungeon.png" },
+    description: "",
+    bonusX2: "Увеличивает мастерство стихий на 80 ед.",
+    bonusX4:
+      "Увеличивает урон реакций Бутонизация, Вегетация и Цветение экипированного этим набором персонажа на 40%. Кроме того, активация реакций Бутонизация, Вегетация и Цветение экипированным этим набором персонажем усилит этот эффект на 25%. Каждое суммирование длится 10 сек. Эффект складывается до 4 раз, может возникнуть раз в 1 сек. и активируется, даже если экипированный этим набором персонаж не активен.",
   }); // default kit images
 
   //? mutable properties
@@ -122,12 +164,12 @@
   // Type selection on done
   const handleTypeSelection = (index) => {
     currentTypeIndex.value = index;
-    currentArtifact = data.artifactTypes[currentTypeIndex.value]["type"];
+    currentArtifactType = data.artifactTypes[currentTypeIndex.value]["type"];
     currentArtifactImage = currentKit.value["images"][index];
 
-    if (currentArtifact == "Цветок") {
+    if (currentArtifactType == "Цветок") {
       selectedMainStat.value = "HP";
-    } else if (currentArtifact == "Перо") {
+    } else if (currentArtifactType == "Перо") {
       selectedMainStat.value = "Сила атаки";
     } else {
       selectedMainStat.value = "Выберите верхний стат";
@@ -176,7 +218,7 @@
     //* Название набора
     // console.log(mainTitle.value);
     //* Тип артефакта
-    // console.log(currentArtifact);
+    // console.log(currentArtifactType);
     //* Верхний стат
     // console.log(selectedMainStat.value);
     //* Доп статы
@@ -185,7 +227,7 @@
     const note = {
       image: Object.values(currentArtifactImage)[0],
       title: mainTitle.value,
-      type: currentArtifact,
+      type: currentArtifactType,
       main: selectedMainStat.value,
       extra: Object.values(currentDopStats).map((item) => item.value),
       completed: false,
@@ -210,7 +252,7 @@
 
   // set defaults
   onMounted(() => {
-    const currentArtifact = "Цветок";
+    const currentArtifactType = "Цветок";
     currentArtifactImage = currentKit.value["images"][0];
   });
 </script>
@@ -218,31 +260,86 @@
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
 
+  .main-title {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0 65px 0;
+    & h1 {
+      font-family: $ff_R;
+      font-size: 24rem;
+    }
+
+    p {
+      position: relative;
+
+      font-family: "Satisfy", cursive;
+      font-size: 11rem;
+
+      &:after {
+        content: "";
+        position: absolute;
+        border-bottom: 2.5rem solid $white;
+        border-radius: 4rem;
+        opacity: 0.2;
+        width: 10vw;
+        left: 50%;
+        bottom: -45px;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .main-text {
+    @include fdrjc_ais;
+    flex: calc(100% / 3);
+
+    & p {
+      font-family: $ff_R;
+      font-size: 1.8rem;
+      padding: 10px;
+      margin: 0 10px;
+    }
+  }
+
   .control-panel {
+    @include fdrjc_aic;
     height: 100%;
     min-height: 100vh;
     &__inner {
     }
 
     &__content {
-      @include fdrjsa_ais;
+      @include fdrjsb_ais;
+    }
+
+    &__options {
+      padding: 15px;
+      background: $white;
+      border-radius: 5px;
+      margin: 0 20px 0 0;
+
+      & .option-item:first-child {
+        margin-bottom: 5px;
+      }
     }
   }
   .card {
-    &__wrapper {
-    }
+    width: 100%;
+    display: flex;
 
-    &__content {
+    &__wrapper {
+      width: 100%;
     }
   }
-  .card-description {
-    &__top {
-    }
 
-    &__center {
+  .card-content {
+    width: 100%;
+    &__row {
+      @include fdrjs_ais;
+      margin-bottom: 20px;
     }
-
-    &__bottom {
+    &__column {
+      @include fdcjc_ais;
     }
   }
 </style>
