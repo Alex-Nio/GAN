@@ -79,11 +79,11 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
-  $imageWidth: 87px;
+  $imageWidth: 96px;
 
   .selection-list {
     display: grid;
-    grid-template-columns: repeat(6, minmax(85px, 87px));
+    grid-template-columns: repeat(5, minmax($imageWidth, $imageWidth));
     width: 100%;
     justify-content: start;
     align-items: center;
@@ -95,7 +95,7 @@
 
   .selection-item {
     width: $imageWidth;
-    max-width: 87px;
+    max-width: $imageWidth;
 
     &__image {
       width: $imageWidth;
@@ -141,10 +141,14 @@
   //Types
 
   .types-list {
-    @include fdcjc_aic;
-    padding: 18px 19px 18px 22px;
-    background-color: $types-selected-bg;
+    display: grid;
+    grid-template-columns: repeat(5, minmax($imageWidth, $imageWidth));
+    justify-content: start;
+    align-items: center;
+    grid-gap: 5px 20px;
     border-radius: 12px;
+    padding: 15px;
+    background-color: $types-selected-bg;
     & .selection-item {
       //
     }

@@ -11,7 +11,7 @@
     display: inline-block;
     position: absolute;
     top: 50%;
-    left: 200px;
+    left: 10vw;
     transform: translateY(-50%);
     z-index: 30;
 

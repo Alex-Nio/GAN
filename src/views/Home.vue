@@ -1,79 +1,60 @@
 <template>
-  <main>
-    <section>
-      <div class="container">
-        <div class="control-panel">
-          <div class="control-panel__inner">
-            <div class="control-panel__content-top">
-              <div class="kit-selection">
-                <h1 class="kit-selection__title">{{ mainTitle }}</h1>
-                <selection-list
-                  :mainClass="'selection-list'"
-                  :items="data.kits"
-                  :activeClass="'selection-item current'"
-                  :passiveClass="'selection-item'"
-                  @handleKitSelection="handleKitSelection"
-                ></selection-list>
-              </div>
-              <div class="type-selection">
-                <h3 class="type-selection__title">
-                  {{ data.artifactTypes[currentTypeIndex]["type"] }}
-                </h3>
-                <selection-list
-                  :mainClass="'types-list'"
-                  :items="currentKit.images"
-                  :activeClass="'selection-item current'"
-                  :passiveClass="'selection-item'"
-                  @handleTypeSelection="handleTypeSelection"
-                ></selection-list>
+  <section>
+    <div class="container">
+      <div class="control-panel">
+        <div class="control-panel__inner">
+          <div class="control-panel__content">
+            <div class="card">
+              <div class="card__wrapper">
+                <div class="card__content">
+                  <selection-list
+                    :mainClass="'selection-list'"
+                    :items="data.kits"
+                    :activeClass="'selection-item current'"
+                    :passiveClass="'selection-item'"
+                    @handleKitSelection="handleKitSelection"
+                  ></selection-list>
+                </div>
               </div>
             </div>
-            <div class="control-panel__content-bottom">
-              <div class="control-panel__column">
-                <div class="general-selection">
-                  <h3 class="general-selection__title">
-                    {{ selectTitle }}
-                  </h3>
-                  <div class="general-selection__wrapper">
-                    <general-selection
-                      v-model="currentArtifact"
-                      :mainTitle="mainTitle"
-                      @generalSelectionDone="generalSelectionDone"
-                    ></general-selection>
-                  </div>
+            <div class="card">
+              <div class="card__wrapper">
+                <div class="card__content">
+                  <card-description :currentKit="currentKit"></card-description>
+                  <selection-list
+                    :mainClass="'types-list'"
+                    :items="currentKit.images"
+                    :activeClass="'selection-item current'"
+                    :passiveClass="'selection-item'"
+                    @handleTypeSelection="handleTypeSelection"
+                  ></selection-list>
+                  {{ selectTitle }}
+                  <general-selection
+                    v-model="currentArtifact"
+                    :mainTitle="mainTitle"
+                    @generalSelectionDone="generalSelectionDone"
+                  ></general-selection>
+
+                  <create-btn @createNote="createNote"></create-btn>
                 </div>
               </div>
-              <div class="control-panel__column">
-                <div class="types-selection">
-                  <h3 class="types-selection__title">Выберите доп статы</h3>
-                  <div class="types-selection__wrapper">
-                    <extra-selection
-                      v-model="selectedMainStat"
-                      :currentArtifact="currentArtifact"
-                      :kitSwitched="kitSwitched"
-                      @currentDopStatsSelected="currentDopStatsSelected"
-                    ></extra-selection>
-                  </div>
-                </div>
-              </div>
-              <create-btn @createNote="createNote"></create-btn>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <custom-popup v-model:show="popupVisible">
-      <!-- Popup Error content -->
-      <popup-error v-if="popupContentError" :error="error"></popup-error>
+    </div>
+  </section>
+  <custom-popup v-model:show="popupVisible">
+    <!-- Popup Error content -->
+    <popup-error v-if="popupContentError" :error="error"></popup-error>
 
-      <!-- Popup Default content -->
-      <popup-default
-        v-else
-        @handleCompleteAction="handleCompleteAction"
-        @handlePageChange="handlePageChange"
-      ></popup-default>
-    </custom-popup>
-  </main>
+    <!-- Popup Default content -->
+    <popup-default
+      v-else
+      @handleCompleteAction="handleCompleteAction"
+      @handlePageChange="handlePageChange"
+    ></popup-default>
+  </custom-popup>
 </template>
 
 <script setup>
@@ -83,6 +64,7 @@
   import { useRouter } from "vue-router";
   import data from "@/data/data";
   import selectionList from "@/components/UI/selectionList.vue";
+  import cardDescription from "@/components/controlPanel/cardDescription.vue";
   import generalSelection from "@/components/controlPanel/generalSelection.vue";
   import extraSelection from "@/components/controlPanel/extraSelection.vue";
   import createBtn from "@/components/UI/createBtn.vue";
@@ -236,73 +218,31 @@
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
 
-  .content-wrapper {
-    position: relative;
-  }
   .control-panel {
-    &__column {
-      &:first-child {
-        margin-right: 93px;
-      }
+    height: 100%;
+    min-height: 100vh;
+    &__inner {
     }
 
-    &__content-top {
-      @include fdrjsb_aic;
-      margin-top: 70px;
-      margin-bottom: 27px;
-    }
-
-    &__content-bottom {
-      @include fdrjs_ais;
-      margin-bottom: 35px;
+    &__content {
+      @include fdrjsa_ais;
     }
   }
-
-  .kit-selection {
-    @include fdc;
-    &__title {
-      font-weight: $sb;
-      font-size: 3.6rem;
-      line-height: 1;
-      margin-bottom: 25px;
-    }
-  }
-  .type-selection {
-    @include fdcjc_aic;
-
-    &__title {
-      font-weight: $sb;
-      font-size: 2.4rem;
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-  }
-  .general-selection {
-    &__title {
-      font-size: 2.4rem;
-      margin-bottom: 27px;
-    }
-
+  .card {
     &__wrapper {
-      border-radius: 12px;
-      padding: 21px 17px 61px 19px;
-      background: rgba(138, 255, 230, 0.2);
+    }
+
+    &__content {
     }
   }
-
-  .types-selection {
-    max-width: 625px;
-
-    &__title {
-      font-weight: $sb;
-      font-size: 2.4rem;
-      margin-bottom: 27px;
+  .card-description {
+    &__top {
     }
 
-    &__wrapper {
-      border-radius: 12px;
-      padding: 21px 17px 28px 19px;
-      background: rgba(138, 255, 230, 0.2);
+    &__center {
+    }
+
+    &__bottom {
     }
   }
 </style>

@@ -22,9 +22,9 @@
         </div>
       </div>
     </header>
-    <div class="content-wrapper">
+    <main class="main-content">
       <router-view />
-    </div>
+    </main>
     <fullsize-background></fullsize-background>
   </div>
   <main-footer></main-footer>
@@ -86,6 +86,16 @@
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
 
+  .main-content {
+    margin-top: 138px;
+  }
+
+  header {
+    position: fixed;
+    width: 100%;
+    z-index: 45;
+  }
+
   .header-scroll {
     position: fixed;
     width: 100%;
@@ -100,6 +110,7 @@
     & .navbar-content {
       &:before,
       &::after {
+        opacity: 0;
         transition: all 0.4s ease-in;
       }
 
@@ -147,6 +158,7 @@
     &:after {
       content: "";
       position: absolute;
+      opacity: 1;
       bottom: 5px;
       width: 20vw;
       border-bottom: 4px solid #664147;
@@ -197,45 +209,6 @@
   }
 
   @media screen and (max-width: 976px) {
-    .navbar-content {
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-    .navbar-list {
-      display: none;
-    }
-
-    .navbar-list__wrapper {
-      margin-bottom: 0;
-
-      &.active {
-        width: 100%;
-        padding: 70px 20px;
-        background: rgb(60, 76, 74);
-        animation: fadeIn 0.3s linear;
-
-        & .navbar-list {
-          display: flex;
-          flex-wrap: wrap;
-          background: transparent;
-          padding: 10px 0;
-        }
-      }
-    }
-
-    .registration-items {
-      right: unset;
-      left: 60px;
-    }
-
-    .navbar-actions {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      height: 54px;
-    }
-
     .burger-btn {
       display: inline-flex;
       position: fixed;
@@ -289,32 +262,5 @@
   }
 
   @media screen and (max-width: 667px) {
-    .registration-items {
-      display: none;
-    }
-
-    .navbar-list__wrapper {
-      margin-bottom: 0;
-
-      &.active {
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        & .registration-items {
-          display: flex;
-          flex-direction: column;
-          position: relative;
-          left: unset;
-
-          & li {
-            &:first-child {
-              margin-right: 0;
-              margin-bottom: 20px;
-            }
-          }
-        }
-      }
-    }
   }
 </style>
