@@ -1,5 +1,15 @@
 <template>
   <footer>
+    <div class="disclaimer">
+      <p class="disclaimer__text">
+        Please note that this app is not affiliated with or endorsed by miHoYo, the
+        official developer of Genshin Impact. For official news and updates, please visit
+        their website at
+        <a class="disclaimer__link" target="_blank" href="https://www.mihoyo.com/en/"
+          >https://www.mihoyo.com/en/</a
+        >.
+      </p>
+    </div>
     <div class="footer-content">
       <div class="footer-content__wrapper">
         <div class="footer-logo">
@@ -13,6 +23,21 @@
 <script setup></script>
 
 <style lang="scss" scoped>
+  .disclaimer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #808080;
+    padding: 10px 20px;
+    &__text {
+      font-size: 1.2rem;
+      max-width: 300px;
+    }
+
+    &__link {
+      color: blue;
+    }
+  }
   .footer-content {
     position: relative;
     height: 115px;
