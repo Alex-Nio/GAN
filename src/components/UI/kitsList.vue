@@ -1,5 +1,5 @@
 <template>
-  <div class="kits__wrapper">
+  <div v-if="kits.length > 0" class="kits__wrapper">
     <ul class="kits-list">
       <li class="kits-list__item" v-for="(kit, index) in kits" :key="index">
         <div
@@ -74,10 +74,9 @@
   }
   .kit-card {
     position: relative;
-    @include fdcjs_ais;
     display: inline-block;
     width: 100%;
-    padding: 20px 30px 10px 30px;
+    padding: 41px 15px 10px 15px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 16px;
@@ -127,9 +126,10 @@
     }
 
     &__title {
+      display: inline-block;
+      width: 100%;
       font-size: 1.8rem;
       text-align: center;
-      margin: 30px 0 10px 0;
     }
     &__counter {
       position: absolute;

@@ -1,8 +1,8 @@
 <template>
   <section>
-    <actions-panel :activeFilter="filterValue"></actions-panel>
-    <div class="container">
-      <div class="notes">
+    <div class="notes">
+      <div class="container">
+        <actions-panel :activeFilter="filterValue"></actions-panel>
         <notes-list
           v-if="filteredNotes.length != 0"
           :filteredNotes="filteredNotes"
@@ -45,23 +45,25 @@
   @import "@/assets/scss/imports.scss";
 
   .notes {
+    @include fdcjc;
     position: relative;
     height: 100%;
+    min-height: 82vh;
 
     &__btns {
       @include fdrjs_aic;
     }
 
     &__warning {
-      font-size: 3rem;
+      font-size: calc(22px + 9 * (100vw / 1920));
       margin: 40px 0;
-      padding: 45px 0;
-      background: rgba(52, 236, 239, 0.4);
+      padding: 25px 0;
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(60, 46, 155, 0.16);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
       text-align: center;
     }
   }

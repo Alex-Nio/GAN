@@ -118,10 +118,4 @@
       left: -100%;
     }
   }
-
-  @media screen and (max-width: 876px) {
-    .video-background {
-      left: -400px;
-    }
-  }
 </style>

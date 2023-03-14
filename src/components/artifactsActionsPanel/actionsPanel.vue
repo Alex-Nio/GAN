@@ -3,7 +3,10 @@
     <div class="container">
       <div class="actions-panel__wrapper">
         <h1 class="notes-title">Отслеживаемые наборы:</h1>
-        <button class="go-back-btn" @click="handleClick">Вернуться</button>
+        <div class="actions-panel__actions">
+          <button class="go-back-btn" @click="handleClick">Вернуться</button>
+          <!-- TODO:Добавить сортировку -->
+        </div>
       </div>
     </div>
   </div>
@@ -98,11 +101,12 @@
     @include fdrjc_aic;
     width: 100%;
     padding: 25px 0;
-    margin-top: 30px;
-    background: rgba(52, 236, 239, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1.9px);
+    -webkit-backdrop-filter: blur(1.9px);
+    border: 1px solid rgba(255, 255, 255, 0.59);
     &__wrapper {
       width: 100%;
       max-width: 1440px;

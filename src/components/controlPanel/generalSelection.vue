@@ -128,7 +128,7 @@
         content: "";
         position: absolute;
         top: 50%;
-        right: 20px;
+        right: 10px;
         transform: translateY(-50%);
         width: 16px;
         height: 16px;

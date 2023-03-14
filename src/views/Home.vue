@@ -288,7 +288,7 @@
 
     &__text {
       font-family: $ff_MainText;
-      font-size: 2.8rem;
+      font-size: calc(16px + 12 * (100vw / 1920));
       text-align: center;
       margin-bottom: 30px;
     }
@@ -334,6 +334,33 @@
     }
     &__column {
       @include fdcjc_ais;
+    }
+  }
+
+  @media screen and (max-width: 1396px) {
+    .card-content__row {
+      flex-direction: column;
+      margin-right: 20px;
+    }
+    .types-list {
+      grid-template-columns: repeat(5, minmax(82px, 82px));
+      grid-template-rows: auto;
+      margin: 20px 0;
+    }
+  }
+  @media screen and (max-width: 991px) {
+    .control-panel__content {
+      flex-direction: column;
+    }
+
+    .card-content__row {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    .control-panel__options {
+      margin-right: 0;
+      margin-bottom: 20px;
     }
   }
 </style>

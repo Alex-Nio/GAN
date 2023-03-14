@@ -184,14 +184,44 @@
 
     &__bonuses {
       margin: 10px 0;
-      padding: 0 20px;
     }
   }
+
+  #bonusX2,
+  #bonusX4 {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: 5px;
+      top: 0;
+      color: $white;
+      font-family: $ff_R;
+      font-size: 1.4rem;
+      padding: 3px;
+      background-color: teal;
+      border-radius: 12px;
+      transform: rotate(-15deg);
+    }
+  }
+
+  #bonusX2 {
+    &:before {
+      content: "x2";
+    }
+  }
+
+  #bonusX4 {
+    &:before {
+      content: "x4";
+    }
+  }
+
   .bonuses-list {
-    // list-style-type: disc;
     &__item {
       font-size: 1.6rem;
-      margin: 5px 0;
+      margin: 10px 0;
+      padding: 0 5px 0 30px;
       line-height: 1.2;
       &.full-text {
         display: block;

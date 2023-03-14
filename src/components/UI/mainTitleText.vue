@@ -36,17 +36,18 @@
   .main-title {
     width: 100%;
     text-align: center;
-    margin: 0 0 65px 0;
+    margin: 45px 0 65px 0;
     & h1 {
       font-family: $ff_MainTitle;
-      font-size: 24rem;
+      font-size: calc(40px + 200 * (100vw / 1920));
     }
 
     p {
       position: relative;
 
       font-family: $ff_MainText;
-      font-size: 11rem;
+      line-height: 140%;
+      font-size: calc(22px + 89 * (100vw / 1920));
 
       &:after {
         content: "";
@@ -67,10 +68,26 @@
 
     & p {
       font-family: $ff_R;
-      font-size: 1.8rem;
+      font-size: calc(12px + 6 * (100vw / 1920));
       padding: 10px;
       margin: 0 10px;
       width: calc(100% / 4);
+    }
+  }
+
+  @media screen and (max-width: 1198px) {
+    .main-text p {
+      width: calc(100% / 3);
+    }
+  }
+  @media screen and (max-width: 867px) {
+    .main-text p {
+      width: 75%;
+    }
+    .main-text {
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
     }
   }
 </style>

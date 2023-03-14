@@ -3,44 +3,31 @@
     <div class="artifact-card">
       <div class="artifact-card__wrapper">
         <button @click="deleteNote(note.id)" class="delete-btn"></button>
-
-        <div class="artifact-card__row">
-          <div class="artifact-card__label">
-            <span>{{ note.type }}</span>
-          </div>
+        <div class="artifact-card__label">
+          <span>{{ note.type }}</span>
         </div>
-
+        <img
+          class="artifact-card__image"
+          :src="require(`@/assets/img/artifacts${note.image}`)"
+          alt="Image"
+        />
         <div class="artifact-card__column">
           <span class="artifact-card__kit-name"
-            ><strong>Набор: </strong>{{ note.title }}</span
+            ><strong>{{ note.title }}</strong></span
           >
           <div class="artifact-card__title">
             <span
-              >Верхний стат: <strong>{{ note.main }}</strong></span
+              ><strong>{{ note.main }}</strong></span
             >
           </div>
         </div>
 
         <div class="artifact-card__row">
-          <div class="artifact-card__column">
-            <img
-              class="artifact-card__image"
-              :src="require(`@/assets/img/artifacts${note.image}`)"
-              alt="Image"
-            />
-          </div>
-
-          <div class="artifact-card__column">
-            <!-- <p class="extra-stats-title">Доп статы:</p> -->
-            <div class="artifact-stats">
-              <div class="artifact-stats__wrapper">
-                <span
-                  class="artifact-stats__item"
-                  v-for="item in note.extra"
-                  :key="item"
-                  >{{ item }}</span
-                >
-              </div>
+          <div class="artifact-stats">
+            <div class="artifact-stats__wrapper">
+              <span class="artifact-stats__item" v-for="item in note.extra" :key="item">{{
+                item
+              }}</span>
             </div>
           </div>
         </div>
@@ -69,10 +56,7 @@
   @import "@/assets/scss/imports.scss";
 
   .note-item {
-    display: inline-flex;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+    display: inline-block;
     &__content {
     }
   }
@@ -88,7 +72,7 @@
       @include fdcjs_ais;
       width: 100%;
       height: 100%;
-      padding: 20px 30px 20px 30px;
+      padding: 60px 15px 15px 15px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -105,6 +89,7 @@
     }
 
     &__column {
+      width: 100%;
       @include fdcjc_ais;
     }
 
@@ -112,14 +97,23 @@
     }
 
     &__label {
+      font-size: 2rem;
+      position: absolute;
+      top: 20px;
+      left: 20px;
       padding: 5px 10px;
-      margin-bottom: 10px;
       background-color: teal;
     }
 
     &__image {
-      display: inline-flex;
-      width: 140px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 172px;
+      height: 172px;
     }
 
     &__title {
@@ -128,8 +122,9 @@
     }
 
     &__kit-name {
+      font-family: $ff_C;
       font-size: 2.3rem;
-      margin-bottom: 10px;
+      margin-bottom: 25px;
     }
   }
   .delete-btn {
@@ -158,22 +153,22 @@
   .artifact-stats {
     width: 100%;
     &__wrapper {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      margin: 10px 0;
     }
 
     &__item {
-      padding: 5px 15px;
-      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 15px;
       background-color: teal;
-      font-size: 1.4rem;
-      border-radius: 15px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
+      font-size: 1.6rem;
+      border-radius: 60px;
+      text-align: center;
     }
   }
 </style>

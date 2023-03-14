@@ -30,6 +30,12 @@
         />
       </transition>
     </selection-item>
+    <button class="show-more-btn" @click="showAllItems" v-if="showMoreButtonVisible">
+      Показать все
+    </button>
+    <button class="hide-btn" @click="hideAllItems" v-if="!showMoreButtonVisible">
+      Скрыть
+    </button>
   </ul>
 </template>
 
@@ -69,6 +75,20 @@
 
   const handleTypeSelection = (index) => {
     emit("handleTypeSelection", index);
+  };
+
+  const showMoreButtonVisible = ref(true);
+
+  const showAllItems = () => {
+    const list = document.querySelector(".selection-list");
+    list.style.maxHeight = "none";
+    showMoreButtonVisible.value = false;
+  };
+
+  const hideAllItems = () => {
+    const list = document.querySelector(".selection-list");
+    list.style.maxHeight = "335px";
+    showMoreButtonVisible.value = true;
   };
 
   // set first item to current
@@ -145,6 +165,14 @@
     }
   }
 
+  .show-more-btn {
+    display: none;
+  }
+
+  .hide-btn {
+    display: none;
+  }
+
   //! Types
 
   .types-list {
@@ -212,27 +240,44 @@
   }
 
   @media screen and (max-width: 991px) {
-    .selection-list {
-      padding: 0;
-      justify-content: center;
-    }
-
     .types-list {
+      display: flex;
+      justify-content: center;
       flex-wrap: wrap;
     }
   }
 
-  @media screen and (max-width: 378px) {
+  @media screen and (max-width: 589px) {
     .selection-list {
-      grid-template-columns: repeat(auto-fill, minmax(76px, 76px));
-    }
-    .selection-item {
-      width: 76px;
-      height: 76px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax($imageWidth, 1fr));
+      max-height: 335px;
+      overflow-y: hidden;
+      padding: 15px 15px 55px 15px;
 
-      & img {
-        width: 76px;
-        height: 76px;
+      & .show-more-btn {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        color: $white;
+        width: 100%;
+        background-color: teal;
+        padding: 15px 25px;
+        position: absolute;
+        bottom: 0px;
+      }
+
+      & .hide-btn {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        color: $white;
+        background-color: teal;
+        padding: 15px 10px;
+        position: absolute;
+        bottom: 0px;
+        right: 0;
+        border-top-left-radius: 12px;
       }
     }
   }

@@ -3,20 +3,19 @@
     <header :class="{ 'header-scroll': isScrolled }">
       <div class="navbar">
         <div class="navbar-content">
-          <main-logo></main-logo>
-          <div v-if="isLoggedIn" class="navbar-actions">
+          <div v-if="isLoggedIn || !isLoggedIn" class="navbar-actions">
             <button
               @click="toggleMenu"
               class="burger-btn"
               :class="{ active: showMenu }"
             ></button>
           </div>
+          <main-logo></main-logo>
           <div
             @click="toggleMenu"
             class="navbar-list__wrapper"
             :class="{ active: showMenu }"
           >
-            <mobile-logo></mobile-logo>
             <navigation-list></navigation-list>
           </div>
         </div>
@@ -35,7 +34,7 @@
   import { getAuth, onAuthStateChanged } from "firebase/auth";
   import navigationList from "@/components/header/navigationList.vue";
   import mainLogo from "@/components/UI/Logo/mainLogo.vue";
-  import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
+  // import mobileLogo from "@/components/UI/Logo/mobileLogo.vue";
   import mainFooter from "@/components/footer/mainFooter.vue";
   const fullsizeBackground = defineAsyncComponent(() =>
     import("@/components/UI/fullsizeBackground.vue")
@@ -56,7 +55,7 @@
   });
 
   const toggleMenu = () => {
-    if (window.innerWidth <= 976) {
+    if (window.innerWidth <= 991) {
       showMenu.value = !showMenu.value;
       document.body.classList.toggle("no-scroll", showMenu.value);
     }
@@ -88,11 +87,12 @@
 
   .main-content {
     // position: relative;
-    // margin-top: 240px;
+    margin-top: 145px;
+    transition: all 0.3 ease-out;
   }
 
   header {
-    // position: fixed;
+    position: fixed;
     width: 100%;
     z-index: 45;
   }
@@ -104,7 +104,7 @@
     transition: padding 0.5s ease-out;
 
     & .navbar-content {
-      padding: 10px 0;
+      padding: 15px 0;
       transition: all 0.5s ease-out;
     }
 
@@ -126,14 +126,13 @@
 
     & .logo > img {
       width: 75px;
-      transition: width 0.5s ease-out;
+      transition: width 0.3s ease-out;
     }
   }
 
   .navbar {
     position: relative;
     width: 100%;
-    margin-bottom: 10px;
     background-color: $white;
     &:before {
       content: "";
@@ -207,18 +206,43 @@
         display: none;
       }
     }
+
+    .registration-items {
+      right: 40px;
+    }
   }
 
-  @media screen and (max-width: 976px) {
+  @media screen and (max-width: 768px) {
+    .navbar-list__wrapper {
+      display: none;
+      position: absolute;
+      flex-direction: column;
+      height: 100vh;
+      background: white;
+      width: 100vw;
+      top: 100%;
+      right: 0;
+
+      &.active {
+        display: flex;
+        animation: fadeIn 0.3s linear;
+      }
+    }
+
+    .navbar-actions {
+      position: relative;
+      display: flex;
+      height: 23px;
+    }
     .burger-btn {
       display: inline-flex;
-      position: fixed;
-      top: 3px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       right: 20px;
       width: 48px;
       height: 48px;
-      opacity: 0.5;
-      z-index: 30;
+      z-index: 70;
 
       &::before {
         content: "";
@@ -245,7 +269,6 @@
       }
 
       &.active {
-        opacity: 1;
         &::after {
           content: "";
           position: absolute;
@@ -260,8 +283,5 @@
         }
       }
     }
-  }
-
-  @media screen and (max-width: 667px) {
   }
 </style>

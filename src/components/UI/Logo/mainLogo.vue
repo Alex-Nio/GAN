@@ -17,13 +17,13 @@
 
     & > img {
       width: 125px;
-      transition: width 0.5s ease-out;
+      transition: width 0.3s ease-out;
     }
   }
 
-  @media screen and (max-width: 976px) {
+  @media screen and (max-width: 1060px) {
     .logo {
-      display: none;
+      left: 20px;
     }
   }
 </style>

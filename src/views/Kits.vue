@@ -1,13 +1,13 @@
 <template>
   <section>
-    <actions-panel></actions-panel>
-    <div class="container">
-      <div class="kits">
+    <div class="kits">
+      <div class="container">
+        <actions-panel></actions-panel>
         <kits-list :kits="kits" @pageChange="pageChange"></kits-list>
+        <div v-if="kits.length == 0" class="notes__warning">
+          <p>Пожалуйста, сперва добавьте артефакт в отслеживаемые</p>
+        </div>
       </div>
-    </div>
-    <div v-if="kits.length == 0" class="notes__warning">
-      <p>Пожалуйста, сперва добавьте артефакт в отслеживаемые</p>
     </div>
   </section>
 </template>
@@ -74,18 +74,28 @@
 <style lang="scss">
   @import "@/assets/scss/imports.scss";
 
+  .kits {
+    @include fdcjc;
+    height: 100%;
+    min-height: 82vh;
+  }
+
   .notes {
     &__warning {
-      font-size: 3rem;
+      font-size: calc(22px + 9 * (100vw / 1920));
       margin: 40px 0;
-      padding: 45px 0;
-      background: rgba(52, 236, 239, 0.4);
+      padding: 25px 0;
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(60, 46, 155, 0.16);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
       text-align: center;
+
+      & p {
+        padding: 0 15px;
+      }
     }
   }
 

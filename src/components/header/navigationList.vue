@@ -75,46 +75,42 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
+  $active: #40c9a2;
 
-  .navbar-link {
-    @include fdrjc_aic;
-    margin: 0 3px;
-    opacity: 1;
-    font-family: $ff_C;
-    font-size: 1.8rem;
-    font-weight: $sb;
-    color: $black;
-    border-radius: 5px;
-    padding: 5px 10px;
+  .navbar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
 
-    &:active {
-      color: #e5f9e0;
-      background-color: #40c9a2;
-      transition: all 0.3s linear;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
     }
   }
 
-  .navbar-item {
+  .navbar-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-family: $ff_C;
+    color: $black;
     border-radius: 5px;
-    transition: all 0.3s linear;
+    padding: 5px 15px;
 
     &:hover {
-      transform: translateY(-4px);
+      opacity: 1;
+      color: $white;
       background-color: $black;
-      box-shadow: 0px 4px 7px -3px rgba(62, 67, 71, 0.11);
-      transition: all 0.3s linear;
-      & .navbar-link {
-        color: $white;
-        transition: all 0.3s linear;
-      }
     }
 
-    & .router-link-active {
-      &.navbar-link {
-        color: #e5f9e0;
-        background-color: #40c9a2;
-        box-shadow: 0px 4px 7px -2px rgba(62, 67, 71, 0.2);
-      }
+    &.router-link-active {
+      color: $white;
+      background-color: $active;
+      border-radius: 5px;
     }
   }
 
@@ -124,11 +120,43 @@
     }
   }
 
-  @media screen and (max-width: 667px) {
+  @media screen and (max-width: 768px) {
+    .registration-items {
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transform: none;
+      top: unset;
+      right: unset;
+      height: calc(50% - 118px);
+      & li {
+        font-size: 2.8rem;
+        margin: 5px auto;
+
+        &:first-child {
+          margin-right: auto;
+        }
+      }
+    }
+
+    .navbar-list {
+      flex-direction: column;
+      height: calc(50% - 118px);
+      padding: 0 20px;
+    }
+
+    .navbar-item {
+      width: 100%;
+      margin: 15px 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
     .navbar-link {
       width: 100%;
-      max-width: 120px;
-      margin: 10px;
+      max-width: 150px;
     }
   }
 </style>

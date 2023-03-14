@@ -123,13 +123,14 @@
     @include fdcjc_aic;
     width: 100%;
     max-width: 400px;
-    padding: 20px;
-    background: rgba(36, 226, 229, 0.2);
+    padding: 15px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    border: 1px solid rgba(36, 226, 229, 0.3);
+    backdrop-filter: blur(1.9px);
+    -webkit-backdrop-filter: blur(1.9px);
+    border: 1px solid rgba(255, 255, 255, 0.59);
 
     &__input {
       width: 100%;
@@ -143,10 +144,19 @@
     &__btn {
       font-size: 1.6rem;
       padding: 10px 35px;
+      margin: 0 10px;
       background-color: $white;
       color: $black;
       border: 2px solid transparent;
       transition: all 0.2s linear;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       &:disabled {
         color: #c3c3c3a4;
