@@ -28,34 +28,26 @@
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
 
-  $btn-bg: #40c9a2;
-  $btn-active: rgba(43, 189, 246, 0.746);
-  $green: #40c9a2;
-  $gray: rgba(43, 189, 246, 0.746);
   .btn-container {
     @include fdcjc_aic;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
   }
   #button {
     font-family: $ff_R;
     font-size: 1.8rem;
     outline: none;
-    height: 30px;
+    height: 45px;
     text-align: center;
     width: 130px;
-    border-radius: 12px;
-    background: $green;
-    border: 2px solid $green;
+    background: $primary;
+    border: 2px solid $white;
     color: $white;
     text-shadow: 0;
     cursor: pointer;
     transition: all 0.25s ease;
     &:hover {
       opacity: 0.8;
-      background: $green;
+      background: $white;
+      color: $black;
     }
     &:active {
       //letter-spacing: 2px;
@@ -67,13 +59,13 @@
     }
   }
   #button.onclic {
-    width: 30px;
+    width: 45px;
     border-color: $secondary;
     border-radius: 42px;
     border-width: 3px;
     font-size: 0;
     background-color: transparent;
-    border-left-color: $green;
+    border-left-color: red;
     animation: rotating 1s 0.25s linear infinite;
 
     &:after {
@@ -86,7 +78,7 @@
     border-radius: 42px;
     font-size: 1.8rem;
     color: white;
-    background: $green;
+    background: teal;
     &:after {
       content: "";
       position: absolute;

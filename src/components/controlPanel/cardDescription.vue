@@ -28,19 +28,29 @@
         </span>
         <div class="kit-description__bonuses">
           <ul class="bonuses-list">
-            <li class="bonuses-list__item">
+            <li id="bonusX2" class="bonuses-list__item">
               {{ currentKit.bonusX2 }}
             </li>
-            <li class="bonuses-list__item">
+            <li
+              id="bonusX4"
+              class="bonuses-list__item"
+              :class="{ 'text-clamp': !readMore, 'full-text': readMore }"
+            >
               {{ currentKit.bonusX4 }}
             </li>
+            <button
+              v-if="isTextTooLong"
+              class="read-more-btn"
+              @click="readMore = !readMore"
+            >
+              Читать далее
+            </button>
           </ul>
         </div>
       </div>
     </div>
     <div class="card-description__bottom">
-      <div class="schedule">
-        <p>В какие дни по расписанию</p>
+      <div class="actions">
         <create-btn @click="createNote"></create-btn>
       </div>
     </div>
@@ -49,7 +59,7 @@
 
 <script setup>
   // imports
-  import { watch } from "vue";
+  import { watch, ref, computed } from "vue";
   import createBtn from "@/components/UI/createBtn.vue";
 
   // props
@@ -72,10 +82,18 @@
     emit("createNote");
   };
 
+  const readMore = ref(false);
+
+  // computed property to calculate the length of bonusX4 text
+  const isTextTooLong = computed(() => {
+    const bonusX4Text = props.currentKit.bonusX4 || "";
+    return bonusX4Text.split(" ").length >= 26;
+  });
+
   watch(
     () => [props.currentKit],
     () => {
-      console.log(props.currentKit);
+      readMore.value = false;
     }
   );
 </script>
@@ -85,12 +103,18 @@
 
   .card-description {
     width: 100%;
+
     &__top {
       @include fdcjc_ais;
       padding: 15px;
       margin-bottom: 5px;
-      background-color: $white;
-      color: $black;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
+      color: $white;
       border-radius: 5px;
     }
 
@@ -98,18 +122,27 @@
       @include fdcjc_ais;
       padding: 15px;
       margin-bottom: 5px;
-      background-color: $white;
-      color: $black;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
+      color: $white;
       border-radius: 5px;
     }
 
     &__bottom {
       position: relative;
       @include fdcjc_ais;
-      padding: 15px;
-      margin-bottom: 5px;
-      background-color: $white;
-      color: $black;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(1.9px);
+      -webkit-backdrop-filter: blur(1.9px);
+      border: 1px solid rgba(255, 255, 255, 0.59);
+      color: $white;
       border-radius: 5px;
     }
   }
@@ -121,10 +154,11 @@
 
     &__image {
       object-fit: cover;
-      width: 680px;
+      width: 800px;
       height: 200px;
       background: $black;
       margin: 0 auto;
+      border-radius: 5px;
     }
 
     &__text {
@@ -154,14 +188,55 @@
     }
   }
   .bonuses-list {
-    list-style-type: disc;
+    // list-style-type: disc;
     &__item {
       font-size: 1.6rem;
       margin: 5px 0;
       line-height: 1.2;
+      &.full-text {
+        display: block;
+        -webkit-line-clamp: none;
+        -webkit-box-orient: inherit;
+        overflow: hidden;
+      }
+
+      &.text-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
   }
 
-  .schedule {
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 55px;
+  }
+
+  .read-more-btn {
+    color: $white;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s linear;
+    &:hover {
+      color: $form-focus-color;
+      transition: all 0.3s linear;
+      &::before {
+        border-bottom: 1px solid $form-focus-color;
+        transition: all 0.3s linear;
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      border-bottom: 1px solid #fff;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      transition: all 0.3s linear;
+    }
   }
 </style>

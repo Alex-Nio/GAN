@@ -78,12 +78,18 @@
     background: url("@/assets/img/bg.png") no-repeat center / cover;
     position: fixed;
     min-height: 100vh;
-    top: -10px;
+    top: 113px;
     right: -10px;
     bottom: -10px;
     left: -10px;
     z-index: -99;
     opacity: 0.5;
+    transition: all 0.5s ease-out;
+
+    &.bg-scroll {
+      top: 48px;
+      transition: all 0.5s ease-out;
+    }
   }
   .video-foreground,
   .video-background video {

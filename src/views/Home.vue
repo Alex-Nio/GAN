@@ -126,13 +126,13 @@
 
   // Parallax settings
   const parallaxTop = {
-    speed: 0.35,
+    speed: 0.25,
     down: true,
     up: false,
   };
 
   const parallaxBottom = {
-    speed: 0.15,
+    speed: 0.1,
     down: true,
     up: false,
   };
@@ -140,7 +140,6 @@
   //? defaults
   const mainTitle = ref("Цветок потерянного рая"); // set default title
   const currentTypeIndex = ref(0); // index of current artefact type
-  const selectTitle = "Верхний стат"; // main stat selection title
   const selectedMainStat = ref("HP"); // default main stat
   let currentArtifactType = "Цветок"; // default artifact type
   const currentKit = ref({
@@ -201,6 +200,7 @@
   // Top stat selection on done
   const generalSelectionDone = (value) => {
     selectedMainStat.value = value;
+    currentDopStats = [];
   };
 
   // Emit for note creation.
@@ -261,6 +261,8 @@
       popupContentError.value = false;
       popupVisible.value = true;
       selectionDone.value = true;
+      // reset
+      resetCheckboxes();
     }
   };
 
@@ -286,9 +288,9 @@
 
     &__text {
       font-family: $ff_MainText;
-      font-size: 4rem;
+      font-size: 2.8rem;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
 
     &__inner {

@@ -25,8 +25,8 @@
     <main class="main-content">
       <router-view />
     </main>
-    <fullsize-background></fullsize-background>
   </div>
+  <fullsize-background :class="{ 'bg-scroll': isScrolled }"></fullsize-background>
   <main-footer></main-footer>
 </template>
 
@@ -87,12 +87,12 @@
   @import "@/assets/scss/imports.scss";
 
   .main-content {
-    position: relative;
-    margin-top: 240px;
+    // position: relative;
+    // margin-top: 240px;
   }
 
   header {
-    position: fixed;
+    // position: fixed;
     width: 100%;
     z-index: 45;
   }

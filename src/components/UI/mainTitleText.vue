@@ -1,23 +1,23 @@
 <template>
-  <div class="main-title">
-    <h1>GAN</h1>
-    <p>Genshin Artifact Notes</p>
-  </div>
-  <div class="main-text">
-    <p>
-      Приложение GAN - это справочник артефактов для игры Genshin Impact. В приложении вы
-      можете найти информацию о различных наборах артефактов, их свойствах, бонусах и
-      местоположении.
-    </p>
-    <p>
-      Используйте меню выбора наборов артефактов и их изображений, чтобы найти нужный
-      набор, а затем выберите свойства артефактов, чтобы получить информацию о его
-      бонусах.
-    </p>
-    <p>
-      GAN позволяет игрокам легко найти и собрать лучшие наборы артефактов для своих
-      персонажей в игре Genshin Impact.
-    </p>
+  <div class="text-container">
+    <div class="main-title">
+      <h1>GAN</h1>
+      <p>Genshin Artifact Notes</p>
+    </div>
+    <div class="main-text">
+      <p>
+        Приложение GAN - это справочник артефактов для игры Genshin Impact. В приложении
+        вы можете найти информацию о различных наборах артефактов и их местоположении.
+      </p>
+      <p>
+        Используйте меню выбора наборов артефактов, чтобы найти нужный набор, а затем
+        выберите свойства артефактов, чтобы получить информацию о его бонусах.
+      </p>
+      <p>
+        GAN позволяет игрокам легко найти, узнать доступное время для фарма и собрать
+        лучшие наборы артефактов для своих персонажей в игре Genshin Impact.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -25,10 +25,18 @@
 
 <style lang="scss" scoped>
   @import "@/assets/scss/imports.scss";
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 88.2vh;
+  }
   .main-title {
     width: 100%;
     text-align: center;
-    margin: 30px 0 65px 0;
+    margin: 0 0 65px 0;
     & h1 {
       font-family: $ff_MainTitle;
       font-size: 24rem;
@@ -56,13 +64,13 @@
 
   .main-text {
     @include fdrjc_ais;
-    flex: calc(100% / 3);
 
     & p {
       font-family: $ff_R;
       font-size: 1.8rem;
       padding: 10px;
       margin: 0 10px;
+      width: calc(100% / 4);
     }
   }
 </style>

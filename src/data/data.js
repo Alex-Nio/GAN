@@ -10,7 +10,7 @@ export default {
         { goblet: "/Цветок потерянного рая/goblet.png" },
         { hat: "/Цветок потерянного рая/hat.png" }
       ],
-      location: { name: "Песчаное царство", image: "/Цветок потерянного рая/dungeon.png" },
+      location: { name: "Город золота", image: "/Цветок потерянного рая/dungeon.png" },
       description: "",
       bonusX2: "Увеличивает мастерство стихий на 80 ед.",
       bonusX4:
@@ -25,7 +25,7 @@ export default {
         { goblet: "/Хроники Чертогов в пустыне/goblet.png" },
         { hat: "/Хроники Чертогов в пустыне/hat.png" }
       ],
-      location: { name: "Песчаное царство", image: "/Хроники Чертогов в пустыне/dungeon.png" },
+      location: { name: "Город золота", image: "/Хроники Чертогов в пустыне/dungeon.png" },
       description: "",
       bonusX2: "Увеличивает бонус Анемо урона на 15%.",
       bonusX4:
