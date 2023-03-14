@@ -45,7 +45,7 @@
   const menuLinks = [
     { title: "Главная", url: "/" },
     { title: "Наборы", url: "/kits" },
-    { title: "Планирование", url: "/planning" },
+    // { title: "Планирование", url: "/planning" },
   ];
 
   const registrationItems = [
