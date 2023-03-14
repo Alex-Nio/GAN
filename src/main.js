@@ -6,7 +6,8 @@ import { initializeApp } from "firebase/app";
 import "animate.css";
 import "./assets/scss/main.scss";
 import ScrollParallax from "vue3-parallax/src/components/ScrollParallax.vue";
-import firebaseConfigObject from "./data/key";
+// import firebaseConfigObject from "./data/key";
+import firebaseConfigObject from "/etc/secrets/key.js";
 
 const app = createApp(App);
 const imports = [router, store];
